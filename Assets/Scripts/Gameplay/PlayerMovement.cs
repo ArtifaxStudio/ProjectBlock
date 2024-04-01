@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Artifax.ProjectBlock
+namespace Artifax.ProjectBlock.Gameplay
 {
     public class PlayerMovement : MonoBehaviour
     {
@@ -9,7 +9,6 @@ namespace Artifax.ProjectBlock
         private CharacterController2D characterController;
 
         private float m_MoveDirection = 0f;
-        private bool m_Jump = false;
 
         public void OnMove(InputAction.CallbackContext context)
         {
@@ -19,18 +18,9 @@ namespace Artifax.ProjectBlock
             m_MoveDirection = context.ReadValue<float>();
         }
 
-        public void OnJump(InputAction.CallbackContext context)
-        {
-            if(!context.performed) 
-                return;
-
-            m_Jump = true;
-        }
-
         private void FixedUpdate()
         {
-            characterController.Move(m_MoveDirection, m_Jump);
-            m_Jump = false;
+            characterController.Move(m_MoveDirection);
         }
     }
 }

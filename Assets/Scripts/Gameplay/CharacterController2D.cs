@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Artifax.ProjectBlock
+namespace Artifax.ProjectBlock.Gameplay
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class CharacterController2D : MonoBehaviour
@@ -11,7 +11,6 @@ namespace Artifax.ProjectBlock
         [SerializeField] private Rigidbody2D m_Rigidbody2D;
         [SerializeField] private float m_JumpForce = 400f;                          // Amount of force added when the player jumps.
         [Range(0, .3f)][SerializeField] private float m_MovementSmoothing = .05f;   // How much to smooth out the movement
-        [SerializeField] private bool m_AirControl = false;                         // Whether or not a player can steer while jumping;
         [SerializeField] private LayerMask m_WhatIsGround;                          // A mask determining what is ground to the character
         [SerializeField] private Transform m_GroundCheck;                           // A position marking where to check if the player is grounded.
 
@@ -27,12 +26,6 @@ namespace Artifax.ProjectBlock
 
         [System.Serializable]
         public class BoolEvent : UnityEvent<bool> { }
-
-        private void Awake()
-        {
-            if (OnLandEvent == null)
-                OnLandEvent = new UnityEvent();
-        }
 
         private void FixedUpdate()
         {
@@ -54,10 +47,10 @@ namespace Artifax.ProjectBlock
         }
 
 
-        public void Move(float move, bool jump)
+        public void Move(float move)
         {
             //only control the player if grounded or airControl is turned on
-            if (m_Grounded || m_AirControl)
+            if (m_Grounded)
             {
                 // Move the character by finding the target velocity
                 Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
@@ -76,13 +69,6 @@ namespace Artifax.ProjectBlock
                     // ... flip the player.
                     Flip();
                 }
-            }
-            // If the player should jump...
-            if (m_Grounded && jump)
-            {
-                // Add a vertical force to the player.
-                m_Grounded = false;
-                m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
             }
         }
         private void Flip()
