@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -11,31 +12,36 @@ namespace Artifax.Framework
         [SerializeField]
         private Canvas m_TransitionCanvas;
 
-        [SerializeField]
-        private int m_StartTransitionState = Animator.StringToHash("Start");
+        private const string START_TRANSITION_TRIGGER = "Start";
+        private const string END_TRANSITION_TRIGGER = "End";
 
-        [SerializeField]
-        private int m_EndTransitionState = Animator.StringToHash("End");
+        public Action OnTransitionEnd;
+
+        private const float m_TransitionSafeTime = 0.5f;
 
 
         public IEnumerator StartTransition()
         {
             m_TransitionCanvas.gameObject.SetActive(true);
 
-            m_Animator.Play(m_StartTransitionState);
+            m_Animator.SetTrigger(START_TRANSITION_TRIGGER);
             yield return null;
             float animationLength = m_Animator.GetCurrentAnimatorStateInfo(0).length;
-            yield return new WaitForSecondsRealtime(animationLength);
+            yield return new WaitForSeconds(animationLength + m_TransitionSafeTime);
+
+            OnTransitionEnd?.Invoke();
         }
 
         public IEnumerator EndTransition()
         {
-            m_Animator.Play(m_EndTransitionState);
+            m_Animator.SetTrigger(END_TRANSITION_TRIGGER);
             yield return null;
             float animationLength = m_Animator.GetCurrentAnimatorStateInfo(0).length;
-            yield return new WaitForSecondsRealtime(animationLength);
+            yield return new WaitForSeconds(animationLength + m_TransitionSafeTime);
 
             m_TransitionCanvas.gameObject.SetActive(false);
+
+            OnTransitionEnd?.Invoke();
         }
     }
 }

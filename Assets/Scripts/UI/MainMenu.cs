@@ -1,6 +1,5 @@
 using Artifax.Framework;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Artifax.ProjectBlock
@@ -15,12 +14,23 @@ namespace Artifax.ProjectBlock
 
         private void Start()
         {
-            StartCoroutine(m_ServiceLocator.GetService<TransitionService>().EndTransition());
+            StartCoroutine(PrepareScene());
         }
 
         public void LoadGameplay()
         {
+            StartCoroutine(LoadGameplayInternal());  
+        }
+
+        private IEnumerator LoadGameplayInternal()
+        {
+            yield return m_ServiceLocator.GetService<TransitionService>().StartTransition();
             m_ServiceLocator.GetService<SceneService>().LoadScene(m_GameplayScene);
+        }
+
+        private IEnumerator PrepareScene()
+        {
+            yield return m_ServiceLocator.GetService<TransitionService>().EndTransition();
         }
     }
 }

@@ -1,3 +1,4 @@
+using Artifax.Framework;
 using UnityEngine;
 
 namespace Artifax.ProjectBlock.Gameplay
@@ -5,6 +6,14 @@ namespace Artifax.ProjectBlock.Gameplay
     public class GameManager : MonoBehaviour
     {
         public GameState State;
+
+        [SerializeField]
+        private ServiceLocator m_ServiceLocator;
+
+        private void Start()
+        {
+            StartCoroutine(m_ServiceLocator.GetService<TransitionService>().EndTransition());
+        }
 
         public void OnPlayerTouched(Transform transform)
         {

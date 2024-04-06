@@ -1165,6 +1165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   State: {fileID: 0}
+  m_ServiceLocator: {fileID: 11400000, guid: 42cc0371c8515154e9f9959866f88608, type: 2}
 --- !u!4 &1764027692
 Transform:
   m_ObjectHideFlags: 0

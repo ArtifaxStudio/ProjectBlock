@@ -1,7 +1,6 @@
 using Artifax.Framework;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Artifax.ProjectBlock
 {
@@ -14,11 +13,6 @@ namespace Artifax.ProjectBlock
         [SerializeField]
         private string m_FirstScene;
 
-        private void Awake()
-        {
-            m_ServiceLocator.RegisterService(FindObjectOfType<SceneService>());
-            m_ServiceLocator.RegisterService(FindObjectOfType<TransitionService>());
-        }
         private IEnumerator Start()
         {
             yield return m_ServiceLocator.GetService<TransitionService>().StartTransition();
