@@ -10,6 +10,8 @@ namespace Artifax.Framework
     {
         private readonly Dictionary<Type, object> m_Services = new Dictionary<Type, object> ();
 
+        public Dictionary<Type, object> Services { get { return m_Services; } }
+
         public T GetService<T>()
         {
             var type = typeof(T);
