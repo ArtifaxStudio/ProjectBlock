@@ -24,7 +24,6 @@ namespace Artifax.Framework
         {
             if(arg0 == SceneManager.GetSceneByBuildIndex(CORE_SCENE_INDEX))
             {
-                SceneManager.SetActiveScene(arg0);
                 GameObject.FindAnyObjectByType<SceneService>().CurrentScene = m_CurrentScene;
             }
         }
