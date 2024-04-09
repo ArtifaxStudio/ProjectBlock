@@ -14,6 +14,7 @@ namespace Artifax.ProjectBlock
 
         private void Start()
         {
+            Debug.Log("Preparing scene");
             StartCoroutine(PrepareScene());
         }
 
@@ -31,6 +32,8 @@ namespace Artifax.ProjectBlock
         private IEnumerator PrepareScene()
         {
             yield return m_ServiceLocator.GetService<TransitionService>().EndTransition();
+
+            Debug.Log("Ending transition");
         }
     }
 }

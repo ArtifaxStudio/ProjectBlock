@@ -8,19 +8,18 @@ namespace Artifax.Framework
 {
     public class SceneService : MonoBehaviour
     {
-        
         private string m_CurrentScene = "";
 
         public string CurrentScene { get => m_CurrentScene; set => m_CurrentScene = value; }
 
         public Action<string> OnSceneLoaded;
 
-        public Coroutine LoadScene(string newScene)
+        public void LoadScene(string newScene)
         {
-            return StartCoroutine(LoadSceneIntenral(newScene));
+            StartCoroutine(LoadScene_Coroutine(newScene));
         }
 
-        private IEnumerator LoadSceneIntenral(string newScene)
+        private IEnumerator LoadScene_Coroutine(string newScene)
         {
             if (m_CurrentScene != string.Empty)
             {

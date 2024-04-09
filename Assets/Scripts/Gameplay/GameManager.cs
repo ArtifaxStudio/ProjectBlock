@@ -12,7 +12,7 @@ namespace Artifax.ProjectBlock.Gameplay
 
         private void Start()
         {
-            StartCoroutine(m_ServiceLocator.GetService<TransitionService>().EndTransition());
+            m_ServiceLocator.GetService<TransitionService>().EndTransition();
         }
 
         public void OnPlayerTouched(Transform transform)
