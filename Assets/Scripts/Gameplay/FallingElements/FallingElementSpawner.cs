@@ -1,16 +1,18 @@
 using UnityEngine;
+using UnityEngine.Pool;
 
 namespace Artifax.ProjectBlock.Gameplay
 {
+    [RequireComponent(typeof(SimpleObjectPool))]
     public class FallingElementSpawner : MonoBehaviour
     {
         [SerializeField]
-        private GameObject m_FallingObject;
+        private SimpleObjectPool m_Pool;
 
         [ContextMenu("Spawn")]
         public void Spawn()
         {
-            var spawnedObject = Instantiate(m_FallingObject);
+            var spawnedObject = Instantiate(m_Pool.Get());
             spawnedObject.transform.position = GetRandomPosition();
         }
 

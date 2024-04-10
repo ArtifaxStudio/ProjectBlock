@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6371971833117604904}
   - component: {fileID: 6371971833117604905}
   - component: {fileID: 6371971833117604906}
-  - component: {fileID: 3394829547786441664}
+  - component: {fileID: 1372490847654333671}
   m_Layer: 9
   m_Name: FallObject
   m_TagString: Untagged
@@ -134,7 +134,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
---- !u!114 &3394829547786441664
+--- !u!114 &1372490847654333671
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,9 +143,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6371971833117604902}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f58260bc35318dd47845bb184c47c935, type: 3}
+  m_Script: {fileID: 11500000, guid: 478e6c7bc84b8b8438b79254914acef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SpriteRenderer: {fileID: 6371971833117604904}
+  m_Config: {fileID: 11400000, guid: 5bc7043df6a4b394685d999e16995ed6, type: 2}
   m_BoundariesLayer:
     serializedVersion: 2
     m_Bits: 384
@@ -154,4 +156,4 @@ MonoBehaviour:
     m_Bits: 64
   m_OnBoundariesEvent: {fileID: 11400000, guid: 4b29a30369a09c146ac8690d016522c7, type: 2}
   m_OnPlayerEvent: {fileID: 11400000, guid: b491adf8bc007c24eade1abdfa8ace51, type: 2}
-  m_Configuration: {fileID: 0}
+  m_OnUsed: {fileID: 11400000, guid: 640b383f9b643a34abfa568e4d2fa4d5, type: 2}

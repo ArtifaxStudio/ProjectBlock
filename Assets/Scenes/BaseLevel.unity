@@ -225,6 +225,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &715399740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 715399741}
+  m_Layer: 0
+  m_Name: FallingElementsPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &715399741
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715399740}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &796834432
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,6 +387,7 @@ GameObject:
   - component: {fileID: 815649506}
   - component: {fileID: 815649503}
   - component: {fileID: 815649501}
+  - component: {fileID: 815649507}
   m_Layer: 6
   m_Name: Character
   m_TagString: Player
@@ -448,7 +480,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d7228ca7da6764a4d9da4dc23f727c03, type: 3}
-  m_Color: {r: 0, g: 0.952054, b: 1, a: 1}
+  m_Color: {r: 0, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -500,6 +532,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &815649507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815649500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9b9be9839db1074b8eb220f4e2bd425, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ColorBlockLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Renderer: {fileID: 0}
 --- !u!1 &1014064129
 GameObject:
   m_ObjectHideFlags: 0
@@ -823,6 +871,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1366275606}
   - component: {fileID: 1366275607}
+  - component: {fileID: 1366275609}
+  - component: {fileID: 1366275608}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -857,7 +907,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12f5b0308c2eabf4ab20154e7b768d82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FallingObject: {fileID: 6371971833117604902, guid: b191fc9d4d715604ba99107a13dc7a37, type: 3}
+  m_Pool: {fileID: 1366275609}
+--- !u!114 &1366275608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366275605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97d4132d097b1d04d924203810242d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 640b383f9b643a34abfa568e4d2fa4d5, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1366275609}
+        m_TargetAssemblyTypeName: Artifax.ProjectBlock.SimpleObjectPool, Assembly-CSharp
+        m_MethodName: Release
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1366275609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366275605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d51add367514a0a4a95634d826b28680, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 6371971833117604902, guid: b191fc9d4d715604ba99107a13dc7a37, type: 3}
+  InitialiCount: 5
 --- !u!1 &1535049783
 GameObject:
   m_ObjectHideFlags: 0
@@ -980,7 +1072,6 @@ GameObject:
   - component: {fileID: 1599371642}
   - component: {fileID: 1599371641}
   - component: {fileID: 1599371640}
-  - component: {fileID: 1599371643}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -1062,21 +1153,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1599371643
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1599371639}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9b9be9839db1074b8eb220f4e2bd425, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ColorBlockLayer:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!1 &1764027688
 GameObject:
   m_ObjectHideFlags: 0
@@ -1088,42 +1164,14 @@ GameObject:
   - component: {fileID: 1764027692}
   - component: {fileID: 1764027691}
   - component: {fileID: 1764027690}
-  - component: {fileID: 1764027689}
+  - component: {fileID: 1764027693}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: LevelManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1764027689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1764027688}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: beb39865a3e3dfd449f34e97a461aac9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Event: {fileID: 11400000, guid: b491adf8bc007c24eade1abdfa8ace51, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1764027691}
-        m_TargetAssemblyTypeName: Artifax.ProjectBlock.Gameplay.GameManager, Assembly-CSharp
-        m_MethodName: OnPlayerTouched
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1764027690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1164,7 +1212,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7914abb6d73dca048914e47942c354c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  State: {fileID: 0}
+  State: {fileID: 11400000, guid: 68ea9ac5374b355448d50d01573b75c0, type: 2}
+  CharacterBlock: {fileID: 815649507}
+  GainedBlocks:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: fddd5153ed1d61743bb216ae56b9de2c, type: 2}
+  LoosedBlocks:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 55979086fe8891a45823eadac932d6af, type: 2}
 --- !u!4 &1764027692
 Transform:
   m_ObjectHideFlags: 0
@@ -1182,6 +1239,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1764027693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764027688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 852d1e099335ac94b8f3c4935b5442b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: b491adf8bc007c24eade1abdfa8ace51, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1764027691}
+        m_TargetAssemblyTypeName: Artifax.ProjectBlock.Gameplay.LevelManager, Assembly-CSharp
+        m_MethodName: OnPlayerTouched
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2038800522
 GameObject:
   m_ObjectHideFlags: 0
@@ -1226,7 +1311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb39865a3e3dfd449f34e97a461aac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Event: {fileID: 11400000, guid: b491adf8bc007c24eade1abdfa8ace51, type: 2}
+  Event: {fileID: 0}
   Response:
     m_PersistentCalls:
       m_Calls:
