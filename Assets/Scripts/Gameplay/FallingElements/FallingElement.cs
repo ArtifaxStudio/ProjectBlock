@@ -47,15 +47,19 @@ namespace Artifax.ProjectBlock.Gameplay
 
         protected virtual void OnTouchPlayer()
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
             m_OnPlayerEvent.Raise(this);
             m_OnUsed.Raise(gameObject);
+
+            gameObject.SetActive(false);
         }
         protected virtual void OnTouchBoundaries()
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
             m_OnBoundariesEvent.Raise(transform);
             m_OnUsed.Raise(gameObject);
+
+            gameObject.SetActive(false);
         }
     }
 }

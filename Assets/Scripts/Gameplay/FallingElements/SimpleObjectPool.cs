@@ -9,14 +9,14 @@ namespace Artifax.ProjectBlock
         [SerializeField]
         protected GameObject Prefab;
         [SerializeField]
-        protected int InitialiCount = 5;
+        protected int InitialCount = 5;
 
         protected List<GameObject> m_Actives = new List<GameObject>();
         protected List<GameObject> m_Inactives = new List<GameObject>();
 
         protected void Start()
         {
-            for (int i = 0; i < InitialiCount; i++)
+            for (int i = 0; i < InitialCount; i++)
             {
                 InstantiateNew();
             }

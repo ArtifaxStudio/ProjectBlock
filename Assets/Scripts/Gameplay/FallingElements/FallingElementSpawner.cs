@@ -12,8 +12,9 @@ namespace Artifax.ProjectBlock.Gameplay
         [ContextMenu("Spawn")]
         public void Spawn()
         {
-            var spawnedObject = Instantiate(m_Pool.Get());
+            var spawnedObject = m_Pool.Get();
             spawnedObject.transform.position = GetRandomPosition();
+            spawnedObject.SetActive(true);
         }
 
         private Vector2 GetRandomPosition()

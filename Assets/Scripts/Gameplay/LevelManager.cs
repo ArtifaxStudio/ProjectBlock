@@ -14,21 +14,27 @@ namespace Artifax.ProjectBlock.Gameplay
         [SerializeField]
         private IntReference LoosedBlocks;
 
+        private void Awake()
+        {
+            GainedBlocks.Value = 0;
+            LoosedBlocks.Value = 0;
+        }
+
         public void OnPlayerTouched(FallingElement element)
         {
             if (element.Configuration.Color == CharacterBlock.Color)
             {
-                GainedBlocks.Variable.SetValue(GainedBlocks.Value + 1);
+                GainedBlocks.Value++;
             }
             else
             {
-                LoosedBlocks.Variable.SetValue(LoosedBlocks.Value + 1);
+                LoosedBlocks.Value++;
             }
         }
 
         public void OnBlockDestroyed(Transform transform)
         {
-            LoosedBlocks.Variable.SetValue(LoosedBlocks.Value + 1);
+            LoosedBlocks.Value++;
         }
     }
 }
