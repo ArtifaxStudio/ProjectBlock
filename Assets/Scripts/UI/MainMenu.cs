@@ -14,16 +14,15 @@ namespace Artifax.ProjectBlock
 
         private void Start()
         {
-            Debug.Log("Preparing scene");
             StartCoroutine(PrepareScene());
         }
 
         public void LoadGameplay()
         {
-            StartCoroutine(LoadGameplayInternal());  
+            StartCoroutine(LoadGameplay_Coroutine());  
         }
 
-        private IEnumerator LoadGameplayInternal()
+        private IEnumerator LoadGameplay_Coroutine()
         {
             yield return m_ServiceLocator.GetService<TransitionService>().StartTransition();
             m_ServiceLocator.GetService<SceneService>().LoadScene(m_GameplayScene);
@@ -32,8 +31,6 @@ namespace Artifax.ProjectBlock
         private IEnumerator PrepareScene()
         {
             yield return m_ServiceLocator.GetService<TransitionService>().EndTransition();
-
-            Debug.Log("Ending transition");
         }
     }
 }
