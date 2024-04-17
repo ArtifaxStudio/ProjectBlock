@@ -14,17 +14,17 @@ namespace Artifax.ProjectBlock.GUI
 
         private void OnEnable()
         {
-            m_Reference.OnReferenceUpdate += UpdateCount;
+            m_Reference.Variable.OnVariableUpdate += UpdateCount;
         }
 
         private void OnDisable()
         {
-            m_Reference.OnReferenceUpdate -= UpdateCount;
+            m_Reference.Variable.OnVariableUpdate -= UpdateCount;
         }
 
         private void UpdateCount()
         {
-            m_CountText.text = m_Reference.ToString();
+            m_CountText.text = m_Reference.Value.ToString();
         }
     }
 }

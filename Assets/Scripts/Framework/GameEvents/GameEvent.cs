@@ -33,6 +33,8 @@ namespace Artifax.Framework
         private readonly List<GameEventListener<T>> m_EventListeners =
             new List<GameEventListener<T>>();
 
+        //TODO: Show Listeners list on the opened scenes
+
         public void Raise(T value)
         {
             for (int i = m_EventListeners.Count - 1; i >= 0; i--)

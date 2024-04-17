@@ -6,13 +6,12 @@ namespace Artifax.Framework
     [Serializable]
     public class IntReference
     {
-        public delegate void ReferenceDelegate();
-
         public bool UseConstant = true;
         [SerializeField]
         protected int m_ConstantValue;
         public IntVariable Variable;
 
+        public delegate void ReferenceDelegate();
         public event ReferenceDelegate OnReferenceUpdate;
 
         public int Value
@@ -27,6 +26,11 @@ namespace Artifax.Framework
 
                 OnReferenceUpdate?.Invoke();
             }
+        }
+
+        private void VariableUpdated()
+        {
+            OnReferenceUpdate?.Invoke();
         }
 
         public static implicit operator int(IntReference reference)

@@ -26,6 +26,8 @@ namespace Artifax.ProjectBlock
         {
             m_Actives.Remove(instance);
             m_Inactives.Add(instance);
+
+            instance.SetActive(false);
         }
         public GameObject Get()
         {
@@ -68,6 +70,8 @@ namespace Artifax.ProjectBlock
         {
             GameObject instance = Instantiate(Prefab);
             m_Inactives.Add(instance);
+
+            instance.SetActive(false);
             return instance;
         }
     }
