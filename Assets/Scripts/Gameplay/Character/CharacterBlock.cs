@@ -10,12 +10,7 @@ namespace Artifax.ProjectBlock.Gameplay
         [SerializeField]
         private SpriteRenderer m_Renderer;
 
-        public Color Color { get; protected set; }
-
-        private void Awake()
-        {
-            Color = m_Renderer.color;
-        }
+        public Color Color => m_Renderer.color;
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
