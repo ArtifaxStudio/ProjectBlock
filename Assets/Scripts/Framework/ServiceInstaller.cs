@@ -10,6 +10,7 @@ namespace Artifax.ProjectBlock
 
         private void Awake()
         {
+            m_ServiceLocator.ClearServices();
             m_ServiceLocator.RegisterService(FindObjectOfType<SceneService>());
             m_ServiceLocator.RegisterService(FindObjectOfType<TransitionService>());
         }
