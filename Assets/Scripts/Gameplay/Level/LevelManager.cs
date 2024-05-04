@@ -41,9 +41,9 @@ namespace Artifax.ProjectBlock.Gameplay
 
             FallingElementSpawner.Spawn();
 
-            float evaluator = State.SpawnedElements / Configuration.TotalFallingElements;
+            float evaluator = (float)State.SpawnedElements / (float)Configuration.TotalFallingElements;
             float timeMultiplier = Configuration.TimeCurve.Evaluate(evaluator);
-            float time = timeMultiplier * Configuration.BaseTimeBetweenElements;
+            float time = (timeMultiplier * Configuration.VariableTimeBetweenElements) + Configuration.BaseTimeBetweenElements;
 
             //TODO: Spawner should control this??
             State.SpawnedElements++;
