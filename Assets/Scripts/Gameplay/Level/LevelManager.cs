@@ -1,5 +1,6 @@
 using Artifax.Framework;
 using UnityEngine;
+using static UnityEditor.Rendering.FilterWindow;
 
 namespace Artifax.ProjectBlock.Gameplay
 {
@@ -53,6 +54,29 @@ namespace Artifax.ProjectBlock.Gameplay
 
         public void OnPlayerTouched(FallingElement element)
         {
+            switch (element.Configuration)
+            {
+                case ColorBlockConfiguration:
+                    ColorBlockTouchedPlayer(element);
+                    break;
+                default:
+                    break;
+            }
+        }
+        public void OnBlockDestroyed(FallingElement element)
+        {
+            switch (element.Configuration)
+            {
+                case ColorBlockConfiguration:
+                    ColorBlockDestroyed(element);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void ColorBlockTouchedPlayer(FallingElement element)
+        {
             if (element.Configuration.Color == CharacterBlock.Color)
             {
                 GainedBlocks.Value++;
@@ -62,7 +86,8 @@ namespace Artifax.ProjectBlock.Gameplay
                 LoosedBlocks.Value++;
             }
         }
-        public void OnBlockDestroyed(Transform transform)
+
+        private void ColorBlockDestroyed(FallingElement element)
         {
             LoosedBlocks.Value++;
         }

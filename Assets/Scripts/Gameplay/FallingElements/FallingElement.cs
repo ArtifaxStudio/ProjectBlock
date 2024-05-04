@@ -16,7 +16,7 @@ namespace Artifax.ProjectBlock.Gameplay
         private LayerMask m_PlayerLayer;
 
         [SerializeField]
-        private TransformGameEvent m_OnBoundariesEvent;
+        private BlockCollisionGameEvent m_OnBoundariesEvent;
         [SerializeField]
         private BlockCollisionGameEvent m_OnPlayerEvent;
         [SerializeField]
@@ -27,6 +27,7 @@ namespace Artifax.ProjectBlock.Gameplay
 
         public virtual void Initialize(FallingElementConfiguration configuration)
         {
+            //Whould be better if the FallingElementConfiguration configures the FallingElement??
             m_Config = configuration;
 
             m_SpriteRenderer.sprite = m_Config.Sprite;
@@ -52,7 +53,7 @@ namespace Artifax.ProjectBlock.Gameplay
         }
         protected virtual void OnTouchBoundaries()
         {
-            m_OnBoundariesEvent.Raise(transform);
+            m_OnBoundariesEvent.Raise(this);
             m_OnUsed.Raise(gameObject);
         }
     }

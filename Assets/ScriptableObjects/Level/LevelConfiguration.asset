@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469ccc24f15b2c44093daaac6e89b3a9, type: 3}
   m_Name: LevelConfiguration
   m_EditorClassIdentifier: 
+  Seed: 123456
   TotalFallingElements: 50
+  NeededBlocks: 30
   BaseTimeBetweenElements: 1
+  VariableTimeBetweenElements: 1
   TimeCurve:
     serializedVersion: 2
     m_Curve:
@@ -38,3 +41,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  FallingElements:
+  - {fileID: 11400000, guid: 1f6f76e2e0b6f544bae82aa598f4942e, type: 2}
+  - {fileID: 11400000, guid: 2d022944d8a53634d8e2438c353fa608, type: 2}
+  - {fileID: 11400000, guid: 5bc7043df6a4b394685d999e16995ed6, type: 2}

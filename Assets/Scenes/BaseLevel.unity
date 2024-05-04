@@ -560,37 +560,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 684106856}
   m_CullTransparentMesh: 1
---- !u!1 &715399740
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 715399741}
-  m_Layer: 0
-  m_Name: FallingElementsPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &715399741
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 715399740}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &796834432
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,7 +570,6 @@ GameObject:
   m_Component:
   - component: {fileID: 796834435}
   - component: {fileID: 796834434}
-  - component: {fileID: 796834433}
   - component: {fileID: 796834436}
   m_Layer: 0
   m_Name: Main Camera
@@ -610,14 +578,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &796834433
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 796834432}
-  m_Enabled: 1
 --- !u!20 &796834434
 Camera:
   m_ObjectHideFlags: 0
@@ -879,6 +839,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b9be9839db1074b8eb220f4e2bd425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Character:
+    UseConstant: 0
+    m_ConstantValue: {fileID: 0}
+    Variable: {fileID: 11400000, guid: 88502acffd568794bb650a40dbc6cb7c, type: 2}
   m_ColorBlockLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -1035,15 +999,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1060726738}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: beb39865a3e3dfd449f34e97a461aac9, type: 3}
+  m_Script: {fileID: 11500000, guid: 852d1e099335ac94b8f3c4935b5442b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Event: {fileID: 11400000, guid: 4b29a30369a09c146ac8690d016522c7, type: 2}
+  Event: {fileID: 11400000, guid: 3c429cc4384be984b8c6c40f4a42b2eb, type: 2}
   Response:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1764027691}
-        m_TargetAssemblyTypeName: Artifax.ProjectBlock.Gameplay.GameManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: Artifax.ProjectBlock.Gameplay.LevelManager, Assembly-CSharp
         m_MethodName: OnBlockDestroyed
         m_Mode: 0
         m_Arguments:
@@ -1469,7 +1433,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1366275605
 GameObject:
@@ -1517,7 +1481,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12f5b0308c2eabf4ab20154e7b768d82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_LevelConfiguration: {fileID: 11400000, guid: 68ea9ac5374b355448d50d01573b75c0, type: 2}
   m_Pool: {fileID: 1366275609}
+  m_Character:
+    UseConstant: 0
+    m_ConstantValue: {fileID: 0}
+    Variable: {fileID: 11400000, guid: 88502acffd568794bb650a40dbc6cb7c, type: 2}
 --- !u!114 &1366275608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2341,7 +2310,7 @@ RectTransform:
   m_Children:
   - {fileID: 1194839144}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

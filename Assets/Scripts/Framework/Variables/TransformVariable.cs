@@ -2,24 +2,24 @@ using UnityEngine;
 
 namespace Artifax.Framework
 {
-    [CreateAssetMenu(fileName = nameof(IntVariable), menuName = ArtifaxScriptablePaths.VARIABLES_SCRIPTABLE_PATH + nameof(IntVariable))]
-    public class IntVariable : ScriptableObject
+    [CreateAssetMenu(fileName = nameof(TransformVariable), menuName = ArtifaxScriptablePaths.VARIABLES_SCRIPTABLE_PATH + nameof(TransformVariable))]
+    public class TransformVariable : ScriptableObject
     {
 #if UNITY_EDITOR
         [Multiline]
         public string DeveloperDescription = "";
 #endif
         [SerializeField]
-        private int m_Value = 0;
+        private Transform m_Value = null;
 
         public delegate void VariableDelegate();
         public event VariableDelegate OnVariableUpdate;
 
-        public int Value
+        public Transform Value
         {
             get { return m_Value; }
-            set 
-            { 
+            set
+            {
                 m_Value = value;
                 OnVariableUpdate?.Invoke();
             }

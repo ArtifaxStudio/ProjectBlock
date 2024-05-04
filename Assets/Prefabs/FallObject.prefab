@@ -154,6 +154,6 @@ MonoBehaviour:
   m_PlayerLayer:
     serializedVersion: 2
     m_Bits: 64
-  m_OnBoundariesEvent: {fileID: 11400000, guid: 4b29a30369a09c146ac8690d016522c7, type: 2}
+  m_OnBoundariesEvent: {fileID: 11400000, guid: 3c429cc4384be984b8c6c40f4a42b2eb, type: 2}
   m_OnPlayerEvent: {fileID: 11400000, guid: b491adf8bc007c24eade1abdfa8ace51, type: 2}
   m_OnUsed: {fileID: 11400000, guid: 640b383f9b643a34abfa568e4d2fa4d5, type: 2}
