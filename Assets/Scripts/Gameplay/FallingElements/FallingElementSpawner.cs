@@ -42,9 +42,7 @@ namespace Artifax.ProjectBlock.Gameplay
         private FallingElementConfiguration GetRandomElement()
         {
             int index = m_RandomGenerator.Next(0, m_LevelConfiguration.FallingElements.Count);
-            Debug.Log(m_LevelConfiguration.FallingElements[index].Color);
             return m_LevelConfiguration.FallingElements[index];
         }
-
     }
 }
