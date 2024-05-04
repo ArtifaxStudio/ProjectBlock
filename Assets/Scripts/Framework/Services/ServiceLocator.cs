@@ -31,5 +31,10 @@ namespace Artifax.Framework
 
             m_Services.Add(type, service);
         }
+
+        public void ClearServices()
+        {
+            m_Services.Clear();
+        }
     }
 }
