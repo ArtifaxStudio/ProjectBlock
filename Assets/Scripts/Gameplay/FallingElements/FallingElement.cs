@@ -3,20 +3,36 @@ using UnityEngine;
 
 namespace Artifax.ProjectBlock.Gameplay
 {
-    public abstract class FallingElement : MonoBehaviour
+    public class FallingElement : MonoBehaviour
     {
+        [SerializeField]
+        private SpriteRenderer m_SpriteRenderer;
+        [SerializeField]
+        private FallingElementConfiguration m_Config;
+
         [SerializeField]
         private LayerMask m_BoundariesLayer;
         [SerializeField]
         private LayerMask m_PlayerLayer;
 
         [SerializeField]
-        private TransformGameEvent m_OnBoundariesEvent;
+        private BlockCollisionGameEvent m_OnBoundariesEvent;
         [SerializeField]
-        private TransformGameEvent m_OnPlayerEvent;
+        private BlockCollisionGameEvent m_OnPlayerEvent;
+        [SerializeField]
+        private GameObjectGameEvent m_OnUsed;
 
-        public abstract void Initialize();
+        public SpriteRenderer SpriteRenderer => m_SpriteRenderer;
+        public FallingElementConfiguration Configuration => m_Config;
 
+        public virtual void Initialize(FallingElementConfiguration configuration)
+        {
+            //Whould be better if the FallingElementConfiguration configures the FallingElement??
+            m_Config = configuration;
+
+            m_SpriteRenderer.sprite = m_Config.Sprite;
+            m_SpriteRenderer.color = m_Config.Color;
+        }
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if(m_BoundariesLayer.LayersMatch(collision.gameObject.layer))
@@ -32,13 +48,13 @@ namespace Artifax.ProjectBlock.Gameplay
 
         protected virtual void OnTouchPlayer()
         {
-            Destroy(gameObject);
-            m_OnPlayerEvent.Raise(transform);
+            m_OnPlayerEvent.Raise(this);
+            m_OnUsed.Raise(gameObject);
         }
         protected virtual void OnTouchBoundaries()
         {
-            Destroy(gameObject);
-            m_OnBoundariesEvent.Raise(transform);
+            m_OnBoundariesEvent.Raise(this);
+            m_OnUsed.Raise(gameObject);
         }
     }
 }

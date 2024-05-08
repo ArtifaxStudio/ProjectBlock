@@ -3,11 +3,9 @@ using UnityEngine;
 
 namespace Artifax.Framework
 {
-    [CreateAssetMenu(fileName = "NewGameEvent", menuName = SCRIPTABLE_PATH + "Game Event")]
+    [CreateAssetMenu(fileName = "NewGameEvent", menuName = ArtifaxScriptablePaths.GAME_EVENT_SCRIPTABLE_PATH + "Game Event")]
     public class GameEvent : ScriptableObject
     {
-        public const string SCRIPTABLE_PATH = "Artifax/Events/";
-
         private readonly List<GameEventListener> m_EventListeners =
             new List<GameEventListener>();
 
@@ -34,6 +32,8 @@ namespace Artifax.Framework
     {
         private readonly List<GameEventListener<T>> m_EventListeners =
             new List<GameEventListener<T>>();
+
+        //TODO: Show Listeners list on the opened scenes
 
         public void Raise(T value)
         {

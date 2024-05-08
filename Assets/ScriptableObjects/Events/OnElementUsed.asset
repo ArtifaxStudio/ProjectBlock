@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c46a0d7c0073c4a459abcdecd31e978e, type: 3}
-  m_Name: OnBlockDestroyed
+  m_Script: {fileID: 11500000, guid: ef1e021479e6ace4d8555fc5482840d1, type: 3}
+  m_Name: OnElementUsed
   m_EditorClassIdentifier: 

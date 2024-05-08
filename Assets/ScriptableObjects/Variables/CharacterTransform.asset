@@ -9,6 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c46a0d7c0073c4a459abcdecd31e978e, type: 3}
-  m_Name: OnBlockDestroyed
+  m_Script: {fileID: 11500000, guid: f8e1e9c91bf7a504997bb60312130420, type: 3}
+  m_Name: CharacterTransform
   m_EditorClassIdentifier: 
+  DeveloperDescription: 
+  m_Value: {fileID: 0}

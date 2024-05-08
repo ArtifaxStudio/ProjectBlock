@@ -9,6 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c46a0d7c0073c4a459abcdecd31e978e, type: 3}
-  m_Name: OnBlockDestroyed
+  m_Script: {fileID: 11500000, guid: 6c790c45e1b92cf4e964b1556b10ba8f, type: 3}
+  m_Name: RedBlock
   m_EditorClassIdentifier: 
+  Sprite: {fileID: 21300000, guid: d7228ca7da6764a4d9da4dc23f727c03, type: 3}
+  Color: {r: 1, g: 0, b: 0, a: 1}
