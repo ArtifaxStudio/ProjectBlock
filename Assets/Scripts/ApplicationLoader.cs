@@ -1,6 +1,7 @@
 using Artifax.Framework;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Artifax.ProjectBlock
 {
@@ -11,19 +12,17 @@ namespace Artifax.ProjectBlock
 
         [Header("Application")]
         [SerializeField]
-        private ServiceInstaller m_ServiceInstaller;
-        [SerializeField]
         private string m_FirstScene;
 
-        private void Awake()
-        {
-            m_ServiceInstaller.Install();
-        }
-
         private IEnumerator Start()
-        {   
+        {
+            yield return SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
+
             yield return m_ServiceLocator.GetService<TransitionService>().StartTransition();
-            m_ServiceLocator.GetService<SceneService>().LoadScene(m_FirstScene);
+
+            var sceneService = m_ServiceLocator.GetService<SceneService>();
+            sceneService.CurrentScene = this.gameObject.scene.name;
+            sceneService.LoadScene(m_FirstScene);
         }
     }
 }

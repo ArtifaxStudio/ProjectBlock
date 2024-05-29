@@ -1,4 +1,3 @@
-using Artifax.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,13 +5,15 @@ namespace Artifax.Framework
 {
     public class EditorBootLoader
     {
-        private const int CORE_SCENE_INDEX = 0;
+        private const int CORE_SCENE_INDEX = 1;
+        private const int BOOT_SCENE_INDEX = 0;
         private static string m_CurrentScene;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         static void Start()
         {
-            if (SceneManager.GetActiveScene() != SceneManager.GetSceneByBuildIndex(CORE_SCENE_INDEX))
+            if (SceneManager.GetActiveScene() != SceneManager.GetSceneByBuildIndex(CORE_SCENE_INDEX) && 
+                SceneManager.GetActiveScene() != SceneManager.GetSceneByBuildIndex(BOOT_SCENE_INDEX))
             {
                 m_CurrentScene = SceneManager.GetActiveScene().name;
                 SceneManager.sceneLoaded += OnCoreSceneLoaded;
