@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: LevelConfiguration
   m_EditorClassIdentifier: 
   Seed: 123456
-  TotalFallingElements: 50
-  NeededBlocks: 30
+  TotalFallingElements: 5
+  NeededBlocks: 5
   BaseTimeBetweenElements: 1
-  VariableTimeBetweenElements: 1
+  VariableTimeBetweenElements: 0.1
   TimeCurve:
     serializedVersion: 2
     m_Curve:
