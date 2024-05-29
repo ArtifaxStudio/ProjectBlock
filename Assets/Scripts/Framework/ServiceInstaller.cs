@@ -8,7 +8,7 @@ namespace Artifax.ProjectBlock
         [Header("Services")]
         [SerializeField] private ServiceLocator m_ServiceLocator;
 
-        private void Awake()
+        public void Install()
         {
             m_ServiceLocator.ClearServices();
             m_ServiceLocator.RegisterService(FindObjectOfType<SceneService>());

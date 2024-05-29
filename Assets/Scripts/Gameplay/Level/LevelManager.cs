@@ -1,6 +1,5 @@
 using Artifax.Framework;
 using UnityEngine;
-using static UnityEditor.Rendering.FilterWindow;
 
 namespace Artifax.ProjectBlock.Gameplay
 {

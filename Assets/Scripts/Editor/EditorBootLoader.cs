@@ -6,7 +6,7 @@ namespace Artifax.Framework
 {
     public class EditorBootLoader
     {
-        private const int CORE_SCENE_INDEX = 1;
+        private const int CORE_SCENE_INDEX = 0;
         private static string m_CurrentScene;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
