@@ -326,7 +326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ServiceLocator: {fileID: 11400000, guid: 42cc0371c8515154e9f9959866f88608, type: 2}
-  m_GameplayScene: Gameplay
+  m_GameplayScene: BaseLevel
 --- !u!1 &1726028895637203519
 GameObject:
   m_ObjectHideFlags: 0

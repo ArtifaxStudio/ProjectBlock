@@ -11,10 +11,17 @@ namespace Artifax.ProjectBlock
 
         [Header("Application")]
         [SerializeField]
+        private ServiceInstaller m_ServiceInstaller;
+        [SerializeField]
         private string m_FirstScene;
 
-        private IEnumerator Start()
+        private void Awake()
         {
+            m_ServiceInstaller.Install();
+        }
+
+        private IEnumerator Start()
+        {   
             yield return m_ServiceLocator.GetService<TransitionService>().StartTransition();
             m_ServiceLocator.GetService<SceneService>().LoadScene(m_FirstScene);
         }
