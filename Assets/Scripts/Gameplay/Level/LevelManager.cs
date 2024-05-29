@@ -33,7 +33,7 @@ namespace Artifax.ProjectBlock.Gameplay
         //TODO: Probably a Update isn't the best option
         private void Update()
         {
-            if (State.SpawnedElements > Configuration.TotalFallingElements)
+            if (State.SpawnedElements >= Configuration.TotalFallingElements)
                 return;
 
             if (m_NextSpawnT > Time.time)
