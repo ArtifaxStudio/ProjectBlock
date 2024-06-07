@@ -10,7 +10,6 @@ namespace Artifax.ProjectBlock.Gameplay
     {
         [SerializeField] private float m_MaxVelocity = 2f;
         [SerializeField] private Rigidbody2D m_Rigidbody2D;
-        [SerializeField] private float m_JumpForce = 400f;
         [Range(0, .3f)][SerializeField] private float m_MovementSmoothing = .05f;
         [SerializeField] private LayerMask m_WhatIsGround;
         [SerializeField] private Transform m_GroundCheck;

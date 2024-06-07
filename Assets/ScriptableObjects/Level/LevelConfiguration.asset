@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LevelConfiguration
   m_EditorClassIdentifier: 
   Seed: 123456
-  TotalFallingElements: 5
+  TotalFallingElements: 50
   NeededBlocks: 5
   BaseTimeBetweenElements: 1
   VariableTimeBetweenElements: 0.1

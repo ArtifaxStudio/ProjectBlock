@@ -15,11 +15,7 @@ namespace Artifax.ProjectBlock.Gameplay
             if (!context.performed)
                 return;
 
-            float halfWidth = Screen.width / 2f;
             m_MoveDirection = context.ReadValue<float>();
-            //m_MoveDirection -= halfWidth;
-            //m_MoveDirection = Mathf.Sign(m_MoveDirection);
-            Debug.Log($"{m_MoveDirection}");
         }
 
         private void FixedUpdate()

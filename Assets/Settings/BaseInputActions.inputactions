@@ -33,7 +33,7 @@
                     "path": "<Gamepad>/leftStick/left",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Mobile;PC_Gamepad",
+                    "groups": "Mobile",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -44,7 +44,7 @@
                     "path": "<Gamepad>/leftStick/right",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Mobile;PC_Gamepad",
+                    "groups": "Mobile",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -59,62 +59,23 @@
                     "action": "Move",
                     "isComposite": true,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "8d744774-d50b-4664-b1ba-0a504862f213",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "PC_Keyboard",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "366f41e8-65cb-40c2-880d-31bc62c720d3",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "PC_Keyboard",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 }
             ]
         }
     ],
     "controlSchemes": [
         {
-            "name": "PC_Keyboard",
-            "bindingGroup": "PC_Keyboard",
-            "devices": [
-                {
-                    "devicePath": "<Keyboard>",
-                    "isOptional": false,
-                    "isOR": false
-                }
-            ]
-        },
-        {
             "name": "Mobile",
             "bindingGroup": "Mobile",
             "devices": [
                 {
                     "devicePath": "<Touchscreen>",
-                    "isOptional": false,
+                    "isOptional": true,
                     "isOR": false
-                }
-            ]
-        },
-        {
-            "name": "PC_Gamepad",
-            "bindingGroup": "PC_Gamepad",
-            "devices": [
+                },
                 {
                     "devicePath": "<Gamepad>",
-                    "isOptional": false,
+                    "isOptional": true,
                     "isOR": false
                 }
             ]
