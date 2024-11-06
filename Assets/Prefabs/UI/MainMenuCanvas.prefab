@@ -326,7 +326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ServiceLocator: {fileID: 11400000, guid: 42cc0371c8515154e9f9959866f88608, type: 2}
-  m_GameplayScene: BaseLevel
+  m_GameplayScene: LevelSelector
 --- !u!1 &1726028895637203519
 GameObject:
   m_ObjectHideFlags: 0
@@ -471,7 +471,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2705030159938487800}
-  - component: {fileID: 3049312883317383814}
   m_Layer: 5
   m_Name: SafeAreaHandle
   m_TagString: Untagged
@@ -502,21 +501,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &3049312883317383814
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2992575300684037592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c97afc556caea1c44969477eb7ddec74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ConformX: 1
-  m_ConformY: 1
-  m_Panel: {fileID: 2705030159938487800}
 --- !u!1 &3972889060524126826
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,7 +513,7 @@ GameObject:
   - component: {fileID: 6224781266694829328}
   - component: {fileID: 836661149752496760}
   m_Layer: 5
-  m_Name: ContentGrid
+  m_Name: CenterContentGrid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -602,7 +586,7 @@ GameObject:
   - component: {fileID: 9210862794605464928}
   - component: {fileID: 4969080987125874030}
   m_Layer: 5
-  m_Name: Image (2)
+  m_Name: MoreInfoButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -678,7 +662,7 @@ GameObject:
   - component: {fileID: 702309309091152266}
   - component: {fileID: 2674222238983933907}
   m_Layer: 5
-  m_Name: Image
+  m_Name: AudioButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -754,8 +738,9 @@ GameObject:
   - component: {fileID: 6545845880140565322}
   - component: {fileID: 1611458683746573272}
   - component: {fileID: 7529614561138915090}
+  - component: {fileID: 3647650417936354773}
   m_Layer: 5
-  m_Name: Image (2)
+  m_Name: BottomBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -848,6 +833,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!225 &3647650417936354773
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4954312739501265567}
+  m_Enabled: 1
+  m_Alpha: 0.1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &6668981344800762233
 GameObject:
   m_ObjectHideFlags: 0
@@ -860,7 +857,7 @@ GameObject:
   - component: {fileID: 7114577873403147886}
   - component: {fileID: 9070723576447337924}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: LeaderButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

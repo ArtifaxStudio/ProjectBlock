@@ -9,7 +9,7 @@ namespace Artifax.ProjectBlock
         [SerializeField]
         private ServiceLocator m_ServiceLocator;
 
-        [SerializeField]
+        [SerializeField, Scene]
         private string m_GameplayScene;
 
         private void Start()

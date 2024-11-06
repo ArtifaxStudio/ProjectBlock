@@ -6,8 +6,14 @@ namespace Artifax.ProjectBlock.Gameplay
     public class LevelState : ScriptableObject
     {
         public int SpawnedElements { get; set; } = 0;
+        public int DestroyedElements { get; set; } = 0;
 
         public void Init()
+        {
+            SpawnedElements = 0;
+        }
+
+        private void ClearLevelState() 
         {
             SpawnedElements = 0;
         }
