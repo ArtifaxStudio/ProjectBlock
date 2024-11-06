@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 469ccc24f15b2c44093daaac6e89b3a9, type: 3}
-  m_Name: LevelConfiguration
+  m_Name: LC_Test
   m_EditorClassIdentifier: 
   Seed: 123456
-  TotalFallingElements: 50
-  NeededBlocks: 5
+  TotalFallingElements: 10
+  NeededBlocks: 1
   BaseTimeBetweenElements: 1
   VariableTimeBetweenElements: 0.1
   TimeCurve:

@@ -14,21 +14,27 @@ namespace Artifax.ProjectBlock.Gameplay
         [SerializeField]
         private FallingElementSpawner FallingElementSpawner;
 
+        [SerializeField]
+        private GameObject m_EndLevelHud;
+
         [Header("Scriptable References")]
         [SerializeField]
         private IntReference GainedBlocks;
         [SerializeField]
         private IntReference LoosedBlocks;
+        [SerializeField]
+        private IntReference DestroyedBlocks;
+
+        private float m_NextSpawnT = 0f;
 
         private void Awake()
         {
             GainedBlocks.Value = 0;
             LoosedBlocks.Value = 0;
+            DestroyedBlocks.Value = 0;
 
             State.Init();
         }
-
-        private float m_NextSpawnT = 0f;
 
         //TODO: Probably a Update isn't the best option
         private void Update()
@@ -84,11 +90,31 @@ namespace Artifax.ProjectBlock.Gameplay
             {
                 LoosedBlocks.Value++;
             }
+
+            DestroyedBlocks.Value++;
+
+            TryEndLevel();
         }
 
         private void ColorBlockDestroyed(FallingElement element)
         {
             LoosedBlocks.Value++;
+            DestroyedBlocks.Value++;
+
+            TryEndLevel();
+        }
+        private void TryEndLevel()
+        {
+            if (HasLevelEnd())
+            {
+                Debug.Log("Level end");
+                m_EndLevelHud.SetActive(true);
+            }
+        }
+        private bool HasLevelEnd()
+        {
+            return DestroyedBlocks.Value >= Configuration.TotalFallingElements
+                || GainedBlocks.Value == Configuration.NeededBlocks;
         }
     }
 }
