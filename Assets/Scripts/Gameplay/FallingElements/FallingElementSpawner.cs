@@ -15,11 +15,11 @@ namespace Artifax.ProjectBlock.Gameplay
 
         private System.Random m_RandomGenerator;
 
-        private CharacterBlock m_CharacterBlock;
+        private CharacterBlockController m_CharacterBlock;
 
         private void Start()
         {
-            m_CharacterBlock = m_Character.Value.GetComponent<CharacterBlock>();
+            m_CharacterBlock = m_Character.Value.GetComponent<CharacterBlockController>();
 
             m_RandomGenerator = new System.Random(m_LevelConfiguration.Seed);
         }

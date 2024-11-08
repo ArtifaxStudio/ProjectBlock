@@ -1,30 +1,21 @@
-using Artifax.Framework;
+using Artifax.ProjectBlock.Gameplay;
+using MoreMountains.Feedbacks;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace Artifax.ProjectBlock.Gameplay
+namespace Artifax.ProjectBlock
 {
     public class CharacterBlock : MonoBehaviour
     {
-        [SerializeField]
-        private TransformReference m_Character;
-        [SerializeField]
-        private LayerMask m_ColorBlockLayer;
         [SerializeField]
         private SpriteRenderer m_Renderer;
 
         public Color Color => m_Renderer.color;
 
-        private void Awake()
+        public void SetColor(Color color)
         {
-            m_Character.Value = transform;
-        }
-
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            if(m_ColorBlockLayer.LayersMatch(collision.gameObject.layer))
-            {
-                m_Renderer.color = collision.gameObject.GetComponent<FallingElement>().SpriteRenderer.color;
-            }
+            m_Renderer.color = color;
         }
     }
 }

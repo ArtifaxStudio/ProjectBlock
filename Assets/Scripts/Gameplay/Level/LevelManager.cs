@@ -9,7 +9,7 @@ namespace Artifax.ProjectBlock.Gameplay
         public LevelState State;
 
         //TODO: This should be a TransformVariable
-        public CharacterBlock CharacterBlock;
+        public CharacterBlockController CharacterBlock;
 
         [SerializeField]
         private FallingElementSpawner FallingElementSpawner;
@@ -39,15 +39,13 @@ namespace Artifax.ProjectBlock.Gameplay
         //TODO: Probably a Update isn't the best option
         private void Update()
         {
-            if (State.SpawnedElements >= Configuration.TotalFallingElements)
-                return;
-
             if (m_NextSpawnT > Time.time)
                 return;
 
             FallingElementSpawner.Spawn();
 
-            float evaluator = (float)State.SpawnedElements / (float)Configuration.TotalFallingElements;
+            //TODO: Redo timing
+            float evaluator = (float)State.SpawnedElements / 100;
             float timeMultiplier = Configuration.TimeCurve.Evaluate(evaluator);
             float time = (timeMultiplier * Configuration.VariableTimeBetweenElements) + Configuration.BaseTimeBetweenElements;
 
@@ -113,8 +111,7 @@ namespace Artifax.ProjectBlock.Gameplay
         }
         private bool HasLevelEnd()
         {
-            return DestroyedBlocks.Value >= Configuration.TotalFallingElements
-                || GainedBlocks.Value == Configuration.NeededBlocks;
+            return GainedBlocks.Value == Configuration.NeededBlocks;
         }
     }
 }

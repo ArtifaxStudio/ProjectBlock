@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: LC_Test
   m_EditorClassIdentifier: 
   Seed: 123456
-  TotalFallingElements: 10
-  NeededBlocks: 1
+  NeededBlocks: 10
   BaseTimeBetweenElements: 1
   VariableTimeBetweenElements: 0.1
   TimeCurve:
