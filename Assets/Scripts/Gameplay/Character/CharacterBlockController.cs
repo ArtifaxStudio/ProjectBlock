@@ -1,6 +1,6 @@
 using Artifax.Framework;
+using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Artifax.ProjectBlock.Gameplay
@@ -15,6 +15,12 @@ namespace Artifax.ProjectBlock.Gameplay
         private CharacterBlock m_BaseBlock;
         [SerializeField]
         private CharacterBlock m_PrefabBlock;
+        [SerializeField]
+        private Transform m_BlocskHolder;
+        [SerializeField]
+        private BlockCollisionGameEvent m_OnFallingElementEvent;
+        [SerializeField]
+        private GameObjectGameEvent m_OnUsed;
 
         private List<CharacterBlock> m_Blocks = new List<CharacterBlock>();
 
@@ -28,23 +34,50 @@ namespace Artifax.ProjectBlock.Gameplay
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
+            OnCollide(collision);
+        }
+
+        public void OnCollide(Collision2D collision)
+        {
             if (!IsCollisionProcessable(collision.gameObject))
             {
                 return;
             }
 
-            var color = collision.gameObject.GetComponent<FallingElement>().SpriteRenderer.color;
+            FallingElement element = collision.gameObject.GetComponent<FallingElement>();
+            var color = element.SpriteRenderer.color;
 
-            if (IsElementSameColor(color))
+            m_OnFallingElementEvent.Raise(element);
+
+            if (!IsElementSameColor(color))
             {
+                AccumulateBlock();
                 foreach (var cube in m_Blocks)
                 {
                     cube.SetColor(color);
                 }
             }
-            else
+
+            m_OnUsed.Raise(collision.gameObject);
+        }
+
+        private void Update()
+        {
+            for (int i = 1; i < m_Blocks.Count; i++)
             {
-                AccumulateBlock();
+                var block = m_Blocks[i];
+                FollowPreviousBlock(m_Blocks[i - 1].transform, m_Blocks[i].transform);
+            }
+        }
+
+        private void FollowPreviousBlock(Transform characterBlock1, Transform characterBlock2)
+        {
+            if (characterBlock1.position.x != characterBlock2.position.x)
+            {
+                var diff = characterBlock1.position.x - characterBlock2.position.x;
+                var value = characterBlock2.position.x + (diff/4f);
+
+                characterBlock2.position = new Vector3(value, characterBlock2.position.y, characterBlock2.position.z);
             }
         }
 
@@ -52,8 +85,10 @@ namespace Artifax.ProjectBlock.Gameplay
         {
             Debug.Log("Accumulate");
             var currentBlock = m_Blocks[m_Blocks.Count - 1];
-            var go = Instantiate(m_PrefabBlock, new Vector3(currentBlock.transform.position.x, NextYBlockPosition(currentBlock), 0), Quaternion.identity, this.transform);
-            m_Blocks.Add(go.GetComponent<CharacterBlock>());
+            var go = Instantiate(m_PrefabBlock, new Vector3(currentBlock.transform.position.x, NextYBlockPosition(currentBlock), 0), Quaternion.identity, m_BlocskHolder);
+            var newBlock = go.GetComponent<CharacterBlock>();
+            newBlock.OnCollide += OnCollide;
+            m_Blocks.Add(newBlock);
         }
 
         private void RemoveBlock()

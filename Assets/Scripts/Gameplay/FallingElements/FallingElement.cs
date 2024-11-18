@@ -12,13 +12,10 @@ namespace Artifax.ProjectBlock.Gameplay
 
         [SerializeField]
         private LayerMask m_BoundariesLayer;
-        [SerializeField]
-        private LayerMask m_PlayerLayer;
 
         [SerializeField]
         private BlockCollisionGameEvent m_OnBoundariesEvent;
-        [SerializeField]
-        private BlockCollisionGameEvent m_OnPlayerEvent;
+  
         [SerializeField]
         private GameObjectGameEvent m_OnUsed;
 
@@ -39,18 +36,8 @@ namespace Artifax.ProjectBlock.Gameplay
             {
                 OnTouchBoundaries();
             }
-
-            if(m_PlayerLayer.LayersMatch(collision.gameObject.layer))
-            {
-                OnTouchPlayer();
-            }
         }
 
-        protected virtual void OnTouchPlayer()
-        {
-            m_OnPlayerEvent.Raise(this);
-            m_OnUsed.Raise(gameObject);
-        }
         protected virtual void OnTouchBoundaries()
         {
             m_OnBoundariesEvent.Raise(this);

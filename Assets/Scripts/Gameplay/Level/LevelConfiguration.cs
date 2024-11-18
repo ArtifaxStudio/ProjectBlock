@@ -9,9 +9,9 @@ namespace Artifax.ProjectBlock.Gameplay
         public int Seed = 123456;
 
         public int NeededBlocks = 30;
-        public float BaseTimeBetweenElements = 1f;
-        public float VariableTimeBetweenElements = 1f;
-        public AnimationCurve TimeCurve = new AnimationCurve(new Keyframe[]{ new Keyframe(0f, 1f), new Keyframe(1f, 1f) });
+        public float BlockSpawnRatePerSecond = 1f;
+        public AnimationCurve MultiplierCurveSpawnRatePerMinute = new AnimationCurve(new Keyframe[]{ new Keyframe(0f, 1f), new Keyframe(1f, 1f) });
+        public float TimeDilatationCurveMultiplier = 1f;
 
         public List<ColorBlockConfiguration> FallingElements = new();
     }

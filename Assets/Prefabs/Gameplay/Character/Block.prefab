@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 3141497500296780075}
   - component: {fileID: 3141497500296780076}
   - component: {fileID: 3141497500296780074}
+  - component: {fileID: 7667157660397487337}
+  - component: {fileID: 2394637428535949755}
   m_Layer: 6
   m_Name: Block
   m_TagString: Player
@@ -125,3 +127,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Renderer: {fileID: 3141497500296780075}
+--- !u!50 &7667157660397487337
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3141497500296780078}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 6
+--- !u!114 &2394637428535949755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3141497500296780078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9b9be9839db1074b8eb220f4e2bd425, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Character:
+    UseConstant: 0
+    m_ConstantValue: {fileID: 0}
+    Variable: {fileID: 11400000, guid: 88502acffd568794bb650a40dbc6cb7c, type: 2}
+  m_ColorBlockLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  m_BaseBlock: {fileID: 3141497500296780074}
+  m_PrefabBlock: {fileID: 4449663014843475346, guid: cbba28f921b349c46a3699085b5daade, type: 3}
+  m_BlocskHolder: {fileID: 0}

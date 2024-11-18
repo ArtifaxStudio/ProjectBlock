@@ -1,4 +1,5 @@
 using Artifax.Framework;
+using System.Collections;
 using UnityEngine;
 
 namespace Artifax.ProjectBlock.Gameplay
@@ -26,6 +27,14 @@ namespace Artifax.ProjectBlock.Gameplay
         private IntReference DestroyedBlocks;
 
         private float m_NextSpawnT = 0f;
+        private float m_CurrentSpawnRate = 0f;
+        private float m_VariableSpawnRate = 1f;
+        private float m_CurveSpawnRate = 1f;
+        private float m_SpawnTime = 1f;
+        private float m_InitialTime = 0f;
+
+        private bool m_IsPlaying = false;
+
 
         private void Awake()
         {
@@ -34,6 +43,33 @@ namespace Artifax.ProjectBlock.Gameplay
             DestroyedBlocks.Value = 0;
 
             State.Init();
+            m_InitialTime = Time.time;
+        }
+
+        private void Start()
+        {
+            m_CurveSpawnRate = Configuration.MultiplierCurveSpawnRatePerMinute.Evaluate(0);
+            m_CurrentSpawnRate = CalculeSpawnRate();
+            m_SpawnTime = 1f/m_CurrentSpawnRate;
+            m_IsPlaying = true;
+            StartCoroutine(ReCalculeCurveSpawnRate());
+        }
+        private IEnumerator ReCalculeCurveSpawnRate()
+        {
+            while (m_IsPlaying)
+            {
+                yield return new WaitForSeconds(1f);
+
+                var mapValue = Remap(Time.time - m_InitialTime, 0f, 60f, 0f, 1f);
+                m_CurveSpawnRate = Configuration.MultiplierCurveSpawnRatePerMinute.Evaluate(mapValue);
+                m_CurrentSpawnRate = CalculeSpawnRate();
+                m_SpawnTime = 1f / m_CurrentSpawnRate;
+            }
+        }
+
+        public static float Remap(float value, float fromMin, float fromMax, float toMin, float toMax)
+        {
+            return toMin + (value - fromMin) * (toMax - toMin) / (fromMax - fromMin);
         }
 
         //TODO: Probably a Update isn't the best option
@@ -44,15 +80,15 @@ namespace Artifax.ProjectBlock.Gameplay
 
             FallingElementSpawner.Spawn();
 
-            //TODO: Redo timing
-            float evaluator = (float)State.SpawnedElements / 100;
-            float timeMultiplier = Configuration.TimeCurve.Evaluate(evaluator);
-            float time = (timeMultiplier * Configuration.VariableTimeBetweenElements) + Configuration.BaseTimeBetweenElements;
-
             //TODO: Spawner should control this??
             State.SpawnedElements++;
 
-            m_NextSpawnT = Time.time + time;
+            m_NextSpawnT = Time.time + m_SpawnTime;
+        }
+
+        public void OnCharacterReachTop()
+        {
+            EndLevel();
         }
 
         public void OnPlayerTouched(FallingElement element)
@@ -66,6 +102,7 @@ namespace Artifax.ProjectBlock.Gameplay
                     break;
             }
         }
+
         public void OnBlockDestroyed(FallingElement element)
         {
             switch (element.Configuration)
@@ -106,12 +143,20 @@ namespace Artifax.ProjectBlock.Gameplay
             if (HasLevelEnd())
             {
                 Debug.Log("Level end");
-                m_EndLevelHud.SetActive(true);
+                EndLevel();
             }
+        }
+        private void EndLevel()
+        {
+            m_EndLevelHud.SetActive(true);
         }
         private bool HasLevelEnd()
         {
             return GainedBlocks.Value == Configuration.NeededBlocks;
+        }
+        private float CalculeSpawnRate()
+        {
+            return Configuration.BlockSpawnRatePerSecond * m_VariableSpawnRate * m_CurveSpawnRate;
         }
     }
 }
