@@ -31,14 +31,15 @@ namespace Artifax.ProjectBlock
                 var go = Instantiate(m_LevelUIPrefab, m_LevelsHolder);
                 if(go.TryGetComponent(out Button button))
                 {
-                    button.onClick.AddListener(LoadLevel);
+                    button.onClick.AddListener(()=> LoadLevel(level));
                 }
             }
         }
 
-        private void LoadLevel()
+        private void LoadLevel(LevelConfiguration configuration)
         {
             m_ServiceLocator.GetService<TransitionService>().StartTransition();
+            m_ServiceLocator.GetService<GameManagerService>().SetLevel(configuration);
             m_ServiceLocator.GetService<SceneService>().LoadScene(m_GameplayScene);
         }
 

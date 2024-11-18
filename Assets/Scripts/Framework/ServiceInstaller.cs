@@ -18,6 +18,7 @@ namespace Artifax.ProjectBlock.Framework
             m_ServiceLocator.ClearServices();
             m_ServiceLocator.RegisterService(FindObjectOfType<SceneService>());
             m_ServiceLocator.RegisterService(FindObjectOfType<TransitionService>());
+            m_ServiceLocator.RegisterService(FindObjectOfType<GameManagerService>());
         }
     }
 }

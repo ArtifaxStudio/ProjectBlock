@@ -2912,7 +2912,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7914abb6d73dca048914e47942c354c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Configuration: {fileID: 11400000, guid: 68ea9ac5374b355448d50d01573b75c0, type: 2}
   State: {fileID: 11400000, guid: a73e34663e427ed4b8d5e075d01a7330, type: 2}
   CharacterBlock: {fileID: 1617028427}
   FallingElementSpawner: {fileID: 1366275607}
@@ -2929,6 +2928,8 @@ MonoBehaviour:
     UseConstant: 0
     m_ConstantValue: 0
     Variable: {fileID: 11400000, guid: 899caf9d27fe1b74bbef32d7d688d1c1, type: 2}
+  m_ServiceLocator: {fileID: 11400000, guid: 42cc0371c8515154e9f9959866f88608, type: 2}
+  m_Configuration: {fileID: 0}
 --- !u!4 &1764027692
 Transform:
   m_ObjectHideFlags: 0

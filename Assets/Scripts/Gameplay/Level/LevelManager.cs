@@ -6,7 +6,6 @@ namespace Artifax.ProjectBlock.Gameplay
 {
     public class LevelManager : MonoBehaviour
     {
-        public LevelConfiguration Configuration;
         public LevelState State;
 
         //TODO: This should be a TransformVariable
@@ -25,7 +24,10 @@ namespace Artifax.ProjectBlock.Gameplay
         private IntReference LoosedBlocks;
         [SerializeField]
         private IntReference DestroyedBlocks;
+        [Header("Services")]
+        [SerializeField] private ServiceLocator m_ServiceLocator;
 
+        [SerializeField] private LevelConfiguration m_Configuration;
         private float m_NextSpawnT = 0f;
         private float m_CurrentSpawnRate = 0f;
         private float m_VariableSpawnRate = 1f;
@@ -48,7 +50,10 @@ namespace Artifax.ProjectBlock.Gameplay
 
         private void Start()
         {
-            m_CurveSpawnRate = Configuration.MultiplierCurveSpawnRatePerMinute.Evaluate(0);
+            if (m_Configuration == null)
+                m_Configuration = m_ServiceLocator.GetService<GameManagerService>().GetNextLevelConfiguration();
+
+            m_CurveSpawnRate = m_Configuration.MultiplierCurveSpawnRatePerMinute.Evaluate(0);
             m_CurrentSpawnRate = CalculeSpawnRate();
             m_SpawnTime = 1f/m_CurrentSpawnRate;
             m_IsPlaying = true;
@@ -61,7 +66,7 @@ namespace Artifax.ProjectBlock.Gameplay
                 yield return new WaitForSeconds(1f);
 
                 var mapValue = Remap(Time.time - m_InitialTime, 0f, 60f, 0f, 1f);
-                m_CurveSpawnRate = Configuration.MultiplierCurveSpawnRatePerMinute.Evaluate(mapValue);
+                m_CurveSpawnRate = m_Configuration.MultiplierCurveSpawnRatePerMinute.Evaluate(mapValue);
                 m_CurrentSpawnRate = CalculeSpawnRate();
                 m_SpawnTime = 1f / m_CurrentSpawnRate;
             }
@@ -152,11 +157,11 @@ namespace Artifax.ProjectBlock.Gameplay
         }
         private bool HasLevelEnd()
         {
-            return GainedBlocks.Value == Configuration.NeededBlocks;
+            return GainedBlocks.Value == m_Configuration.NeededBlocks;
         }
         private float CalculeSpawnRate()
         {
-            return Configuration.BlockSpawnRatePerSecond * m_VariableSpawnRate * m_CurveSpawnRate;
+            return m_Configuration.BlockSpawnRatePerSecond * m_VariableSpawnRate * m_CurveSpawnRate;
         }
     }
 }
