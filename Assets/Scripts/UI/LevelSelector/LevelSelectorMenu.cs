@@ -5,47 +5,48 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Artifax.ProjectBlock
+namespace Artifax.ProjectBlock.UI
 {
+    public delegate void LoadLevelDelegate(LevelConfiguration config);
     public class LevelSelectorMenu : MonoBehaviour
     {
         [SerializeField]
         private ServiceLocator m_ServiceLocator;
 
-        [SerializeField] private List<LevelConfiguration> m_Levels;
-        [SerializeField] private GameObject m_LevelUIPrefab;
+        [SerializeField] private List<LevelsGroup> m_LevelGroups;
+        [SerializeField] private GameObject m_LevelsGroupUIPrefab;
         [SerializeField] private RectTransform m_LevelsHolder;
-        [SerializeField, Scene]
-        private string m_GameplayScene;
 
         private void Start()
         {
             StartCoroutine(PrepareScene());
         }
 
-        private void PopulateLevels()
+        private void PopulateLevelSelector()
         {
-            //Prepare levels
-            foreach (var level in m_Levels)
+            foreach (var levelGroup in m_LevelGroups)
             {
-                var go = Instantiate(m_LevelUIPrefab, m_LevelsHolder);
-                if(go.TryGetComponent(out Button button))
+                var group = Instantiate(m_LevelsGroupUIPrefab, m_LevelsHolder).GetComponent<LevelGroupUI>();
+                group.SetLevelGroup(levelGroup.GroupName);
+                
+                foreach (var levelConfiguration in levelGroup.Levels)
                 {
-                    button.onClick.AddListener(()=> LoadLevel(level));
+                    group.AddLevel(levelConfiguration, LoadLevel);
                 }
             }
+            LayoutRebuilder.ForceRebuildLayoutImmediate(m_LevelsHolder);
         }
 
         private void LoadLevel(LevelConfiguration configuration)
         {
             m_ServiceLocator.GetService<TransitionService>().StartTransition();
             m_ServiceLocator.GetService<GameManagerService>().SetLevel(configuration);
-            m_ServiceLocator.GetService<SceneService>().LoadScene(m_GameplayScene);
+            m_ServiceLocator.GetService<SceneService>().LoadScene(configuration.BaseLevelScene);
         }
 
         private IEnumerator PrepareScene()
         {
-            PopulateLevels();
+            PopulateLevelSelector();
             
             yield return m_ServiceLocator.GetService<TransitionService>().EndTransition();
         }

@@ -6,6 +6,7 @@ namespace Artifax.ProjectBlock.Gameplay
     [CreateAssetMenu(fileName = "LevelConfiguration", menuName = PBScriptablePaths.GAMEPLAY_SCRIPTABLE_PATH + "LevelConfiguration")]
     public class LevelConfiguration : ScriptableObject
     {
+        public string LevelName;
         public int Seed = 123456;
 
         public int NeededBlocks = 30;
@@ -14,5 +15,7 @@ namespace Artifax.ProjectBlock.Gameplay
         public float TimeDilatationCurveMultiplier = 1f;
 
         public List<ColorBlockConfiguration> FallingElements = new();
+
+        public string BaseLevelScene;
     }
 }
