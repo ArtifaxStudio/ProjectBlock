@@ -13,7 +13,6 @@ namespace Artifax.ProjectBlock.Gameplay
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            Debug.Log(collision.name);
             if ((m_LayerMask.LayersMatch(collision.gameObject.layer)))
             {
                 m_OnCharacterReachTop.Raise();

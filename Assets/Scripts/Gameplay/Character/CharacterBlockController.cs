@@ -83,17 +83,11 @@ namespace Artifax.ProjectBlock.Gameplay
 
         private void AccumulateBlock()
         {
-            Debug.Log("Accumulate");
             var currentBlock = m_Blocks[m_Blocks.Count - 1];
             var go = Instantiate(m_PrefabBlock, new Vector3(currentBlock.transform.position.x, NextYBlockPosition(currentBlock), 0), Quaternion.identity, m_BlocskHolder);
             var newBlock = go.GetComponent<CharacterBlock>();
             newBlock.OnCollide += OnCollide;
             m_Blocks.Add(newBlock);
-        }
-
-        private void RemoveBlock()
-        {
-            Debug.Log("Remove block");
         }
 
         private bool IsElementSameColor(Color color)

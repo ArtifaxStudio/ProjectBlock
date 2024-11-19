@@ -1,4 +1,5 @@
 using Artifax.Framework;
+using Artifax.ProjectBlock.UI;
 using System.Collections;
 using UnityEngine;
 
@@ -28,15 +29,18 @@ namespace Artifax.ProjectBlock.Gameplay
         [SerializeField] private ServiceLocator m_ServiceLocator;
 
         [SerializeField] private LevelConfiguration m_Configuration;
+        [SerializeField] private ResultLevelUI m_levelUI;
+
         private float m_NextSpawnT = 0f;
         private float m_CurrentSpawnRate = 0f;
         private float m_VariableSpawnRate = 1f;
         private float m_CurveSpawnRate = 1f;
         private float m_SpawnTime = 1f;
         private float m_InitialTime = 0f;
-
         private bool m_IsPlaying = false;
 
+        [SerializeField, Scene]
+        private string m_MenuScene;
 
         private void Awake()
         {
@@ -58,6 +62,8 @@ namespace Artifax.ProjectBlock.Gameplay
             m_SpawnTime = 1f/m_CurrentSpawnRate;
             m_IsPlaying = true;
             StartCoroutine(ReCalculeCurveSpawnRate());
+
+            m_ServiceLocator.GetService<TransitionService>().EndTransition();
         }
         private IEnumerator ReCalculeCurveSpawnRate()
         {
@@ -72,6 +78,7 @@ namespace Artifax.ProjectBlock.Gameplay
             }
         }
 
+        //TODO: Shouldnt be here
         public static float Remap(float value, float fromMin, float fromMax, float toMin, float toMax)
         {
             return toMin + (value - fromMin) * (toMax - toMin) / (fromMax - fromMin);
@@ -80,6 +87,8 @@ namespace Artifax.ProjectBlock.Gameplay
         //TODO: Probably a Update isn't the best option
         private void Update()
         {
+            if (!m_IsPlaying) return;
+
             if (m_NextSpawnT > Time.time)
                 return;
 
@@ -89,6 +98,12 @@ namespace Artifax.ProjectBlock.Gameplay
             State.SpawnedElements++;
 
             m_NextSpawnT = Time.time + m_SpawnTime;
+        }
+
+        public void BackToMenu()
+        {
+            m_ServiceLocator.GetService<TransitionService>().StartTransition();
+            m_ServiceLocator.GetService<SceneService>().LoadScene(m_MenuScene);
         }
 
         public void OnCharacterReachTop()
@@ -135,7 +150,6 @@ namespace Artifax.ProjectBlock.Gameplay
 
             TryEndLevel();
         }
-
         private void ColorBlockDestroyed(FallingElement element)
         {
             LoosedBlocks.Value++;
@@ -154,6 +168,8 @@ namespace Artifax.ProjectBlock.Gameplay
         private void EndLevel()
         {
             m_EndLevelHud.SetActive(true);
+            m_levelUI.SetResult(Time.time - m_InitialTime, 0, "");
+            m_IsPlaying = false;
         }
         private bool HasLevelEnd()
         {
