@@ -15,10 +15,10 @@ namespace Artifax.ProjectBlock.UI
             m_LevelName.text = groupName;
         }
 
-        public void AddLevel(LevelConfiguration configuration, LoadLevelDelegate loadLevelDelegate)
+        public void AddLevel(LevelConfiguration configuration, LoadLevelDelegate loadLevelDelegate, bool state)
         {
             var go = Instantiate(m_LevelPrefab, m_LevelsHolder).GetComponent<LevelUI>();
-            go.SetLevel(configuration, loadLevelDelegate);
+            go.SetLevel(configuration, loadLevelDelegate, state);
         }
     }
 }

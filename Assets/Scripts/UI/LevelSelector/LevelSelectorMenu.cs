@@ -1,4 +1,5 @@
 using Artifax.Framework;
+using Artifax.ProjectBlock.Framework;
 using Artifax.ProjectBlock.Gameplay;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,7 +32,13 @@ namespace Artifax.ProjectBlock.UI
                 
                 foreach (var levelConfiguration in levelGroup.Levels)
                 {
-                    group.AddLevel(levelConfiguration, LoadLevel);
+                    var state = false;
+                    if (m_ServiceLocator.GetService<DataService>().LevelsProgress.ContainsKey(levelConfiguration.ID))
+                    {
+                        state = m_ServiceLocator.GetService<DataService>().LevelsProgress[levelConfiguration.ID].Completed;
+                    }
+                    Debug.Log("Configure level selector");
+                    group.AddLevel(levelConfiguration, LoadLevel, state);
                 }
             }
             LayoutRebuilder.ForceRebuildLayoutImmediate(m_LevelsHolder);

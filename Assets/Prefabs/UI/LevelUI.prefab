@@ -358,6 +358,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_LevelName: {fileID: 2851380197522390435}
   m_LevelButton: {fileID: 7293493683322482806}
+  m_Completed: {fileID: 4773840669170274135}
 --- !u!1 &8742502976756437548
 GameObject:
   m_ObjectHideFlags: 0

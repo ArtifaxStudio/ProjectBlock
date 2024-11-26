@@ -1,4 +1,5 @@
 using Artifax.Framework;
+using Artifax.ProjectBlock.Framework;
 using Artifax.ProjectBlock.UI;
 using System.Collections;
 using UnityEngine;
@@ -168,8 +169,25 @@ namespace Artifax.ProjectBlock.Gameplay
         private void EndLevel()
         {
             m_EndLevelHud.SetActive(true);
-            m_levelUI.SetResult(Time.time - m_InitialTime, 0, "");
+            var time = Time.time - m_InitialTime;
+            m_levelUI.SetResult(time, 0, "");
             m_IsPlaying = false;
+
+            var levels = m_ServiceLocator.GetService<DataService>().LevelsProgress;
+            if (!levels.ContainsKey(m_Configuration.ID))
+            {
+                LevelProgress lp = new LevelProgress();
+
+                levels.Add(m_Configuration.ID, GetLevelProgress(m_Configuration, time, 0));
+            }
+            else
+            {
+                var currentLevel = levels[m_Configuration.ID];
+                //TODO: Better time than before
+
+            }
+
+            m_ServiceLocator.GetService<DataService>().SaveLevelsData();
         }
         private bool HasLevelEnd()
         {
@@ -178,6 +196,15 @@ namespace Artifax.ProjectBlock.Gameplay
         private float CalculeSpawnRate()
         {
             return m_Configuration.BlockSpawnRatePerSecond * m_VariableSpawnRate * m_CurveSpawnRate;
+        }
+        private LevelProgress GetLevelProgress(LevelConfiguration configuration, float time, int score)
+        {
+            LevelProgress levelProgress = new LevelProgress();
+            levelProgress.LevelID = configuration.ID;
+            levelProgress.Completed = true;
+            levelProgress.Time = time;
+            levelProgress.Score = score;
+            return levelProgress;
         }
     }
 }

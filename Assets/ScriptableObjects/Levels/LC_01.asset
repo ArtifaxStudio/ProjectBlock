@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelName: Level 01
   Seed: 123456
+  ID: 1
   NeededBlocks: 5
   BlockSpawnRatePerSecond: 1
   MultiplierCurveSpawnRatePerMinute:

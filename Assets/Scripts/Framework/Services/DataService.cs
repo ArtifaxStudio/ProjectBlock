@@ -13,18 +13,16 @@ namespace Artifax.ProjectBlock.Framework
         public bool Completed;
         public int Score;
         public float Time;
-
-    }
-    [System.Serializable]
-    public class GroupProgress
-    {
-        public int GroupID;
-        public List<LevelProgress> LevelProgressList;
     }
 
     public class DataService : MonoBehaviour
     {
-        private Dictionary<int, GroupProgress>  GroupsProgress = new Dictionary<int, GroupProgress>();
+        public Dictionary<int, LevelProgress> LevelsProgress = new Dictionary<int, LevelProgress>();
+
+        private void Awake()
+        {
+            LoadLevelData();
+        }
 
         public void Save<T>(T data, string fileName)
         {
@@ -76,9 +74,9 @@ namespace Artifax.ProjectBlock.Framework
             if (FileExists("SaveData/save.json"))
             {
                 string json = File.ReadAllText(path);
-                Dictionary<int, GroupProgress> data = JsonConvert.DeserializeObject<Dictionary<int, GroupProgress>>(json);
+                Dictionary<int, LevelProgress> data = JsonConvert.DeserializeObject<Dictionary<int, LevelProgress>>(json);
                 Debug.Log("Game Loaded!");
-                GroupsProgress = data;
+                LevelsProgress = data;
             }
             else
             {
@@ -89,7 +87,7 @@ namespace Artifax.ProjectBlock.Framework
         [ContextMenu("Save levels data")]
         public void SaveLevelsData()
         {
-            Save(GroupsProgress, "SaveData/save.json");
+            Save(LevelsProgress, "SaveData/save.json");
         }
 
         [ContextMenu("Delete levels file")]
@@ -101,38 +99,30 @@ namespace Artifax.ProjectBlock.Framework
         [ContextMenu("Delete levels data")]
         public void DeleteLevelsData()
         {
-            GroupsProgress.Clear();
+            LevelsProgress.Clear();
         }
 
         [ContextMenu("Populate levels data")]
         public void PopulateLevelsData()
         {
-            GroupProgress groupProgress = new GroupProgress();
             LevelProgress levelProgress = new LevelProgress();
 
             levelProgress.Score = 0;
             levelProgress.LevelID = 0;
             levelProgress.Completed = true;
 
-            groupProgress.LevelProgressList = new List<LevelProgress>();
-            groupProgress.LevelProgressList.Add(levelProgress);
-
-            if (!GroupsProgress.ContainsKey(0))
+            if (!LevelsProgress.ContainsKey(0))
             {
-                GroupsProgress.Add(0, groupProgress);
+                LevelsProgress.Add(0, levelProgress);
             }
         }
 
         [ContextMenu("Debug levels data")]
         public void DebugLevelsData()
         {
-            foreach (var group in GroupsProgress)
+            foreach (var level in LevelsProgress)
             {
-                Debug.Log("Group " + group.Value.GroupID);
-                foreach (var level in group.Value.LevelProgressList)
-                {
-                    Debug.Log(level.LevelID + " Completed: " + level.Completed);
-                }
+                Debug.Log(level.Value.LevelID + " Completed: " + level.Value.Completed);
             }
         }
 #endif

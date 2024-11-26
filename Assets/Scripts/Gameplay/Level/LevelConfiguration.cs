@@ -8,6 +8,7 @@ namespace Artifax.ProjectBlock.Gameplay
     {
         public string LevelName;
         public int Seed = 123456;
+        public int ID = 0;
 
         public int NeededBlocks = 30;
         public float BlockSpawnRatePerSecond = 1f;
