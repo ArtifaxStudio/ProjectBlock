@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelName: Level test
   Seed: 123456
-  NeededBlocks: 100
+  NeededBlocks: 2
   BlockSpawnRatePerSecond: 1
   MultiplierCurveSpawnRatePerMinute:
     serializedVersion: 2
