@@ -33,9 +33,9 @@ namespace Artifax.ProjectBlock.UI
                 foreach (var levelConfiguration in levelGroup.Levels)
                 {
                     var state = false;
-                    if (m_ServiceLocator.GetService<DataService>().LevelsProgress.ContainsKey(levelConfiguration.ID))
+                    if (m_ServiceLocator.GetService<ProgressService>().LevelsProgress.ContainsKey(levelConfiguration.ID))
                     {
-                        state = m_ServiceLocator.GetService<DataService>().LevelsProgress[levelConfiguration.ID].Completed;
+                        state = m_ServiceLocator.GetService<ProgressService>().LevelsProgress[levelConfiguration.ID].Completed;
                     }
                     Debug.Log("Configure level selector");
                     group.AddLevel(levelConfiguration, LoadLevel, state);
