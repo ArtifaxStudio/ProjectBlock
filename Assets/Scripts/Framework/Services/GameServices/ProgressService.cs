@@ -67,19 +67,11 @@ namespace Artifax.ProjectBlock.Framework
             m_ServiceLocator.GetService<ProgressService>().SaveLevelsData();
         }
 
-#if UNITY_EDITOR
-        private void Awake()
-        {
-            m_DataService = m_ServiceLocator.GetService<DataService>();
-
-            if(m_DataService.FileExists(CoreGameProgress.FILE_PATH))
-                CoreGameProgress = m_DataService.LoadData<CoreGameProgress>(CoreGameProgress.FILE_PATH);
-        }
-
         [ContextMenu("Load levels data")]
         public void LoadLevelData()
         {
-            CoreGameProgress.LevelsProgress = m_DataService.LoadData<Dictionary<int, LevelProgress>>(CoreGameProgress.FILE_PATH);
+            if (m_DataService.FileExists(CoreGameProgress.FILE_PATH))
+                CoreGameProgress = m_DataService.LoadData<CoreGameProgress>(CoreGameProgress.FILE_PATH);
         }
 
         [ContextMenu("Save levels data")]
@@ -98,6 +90,15 @@ namespace Artifax.ProjectBlock.Framework
         public void DeleteLevelsData()
         {
             CoreGameProgress.LevelsProgress.Clear();
+        }
+
+#if UNITY_EDITOR
+        private void Awake()
+        {
+            m_DataService = m_ServiceLocator.GetService<DataService>();
+
+            if(m_DataService.FileExists(CoreGameProgress.FILE_PATH))
+                CoreGameProgress = m_DataService.LoadData<CoreGameProgress>(CoreGameProgress.FILE_PATH);
         }
 
         [ContextMenu("Populate levels data")]
