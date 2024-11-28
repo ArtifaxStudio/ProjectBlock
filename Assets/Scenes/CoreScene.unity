@@ -228,6 +228,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20c4199a35035048a212c193b08f82b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ServiceID:
+    guidValue: ce9ce659-cf23-41e3-8ced-219615dca341
+  ServiceDependencies: []
 --- !u!4 &307962658
 Transform:
   m_ObjectHideFlags: 0
@@ -509,6 +512,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e9fb3b7a52dc249bd99fd1999b0efe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ServiceID:
+    guidValue: 9eb9788b-af8d-40bf-ad68-a5ab52f266db
+  ServiceDependencies: []
 --- !u!4 &954906279
 Transform:
   m_ObjectHideFlags: 0
@@ -584,6 +590,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15f3e8c8a894b8644a4ec13d57f07152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ServiceID:
+    guidValue: 28c88f71-ad60-40e2-86f7-45a0ea579181
+  ServiceDependencies: []
 --- !u!4 &1147594538
 Transform:
   m_ObjectHideFlags: 0
@@ -628,6 +637,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07e19c8860ebdfb47829afeddd33a945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ServiceID:
+    guidValue: 18cd588f-1cb4-42b3-8cab-7d5d894c61c8
+  ServiceDependencies:
+  - ServiceName: DataService
+    ServiceGUID:
+      guidValue: 28c88f71-ad60-40e2-86f7-45a0ea579181
   m_ServiceLocator: {fileID: 11400000, guid: 42cc0371c8515154e9f9959866f88608, type: 2}
 --- !u!4 &1253491898
 Transform:
@@ -711,6 +726,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd91626eadd480844b611fc332003352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ServiceID:
+    guidValue: 943ce46e-d71a-486f-a925-ac0acf2c946c
+  ServiceDependencies: []
   m_Animator: {fileID: 1426171732}
   m_TransitionCanvas: {fileID: 597840772}
 --- !u!1 &1530795483

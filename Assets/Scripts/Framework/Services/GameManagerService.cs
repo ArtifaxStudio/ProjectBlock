@@ -1,9 +1,8 @@
 using Artifax.ProjectBlock.Gameplay;
-using UnityEngine;
 
-namespace Artifax.ProjectBlock
+namespace Artifax.ProjectBlock.Framework
 {
-    public class GameManagerService : MonoBehaviour
+    public class GameManagerService : Service
     {
         private LevelConfiguration m_NextLevel;
 

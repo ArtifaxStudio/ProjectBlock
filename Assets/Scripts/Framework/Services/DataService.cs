@@ -1,13 +1,12 @@
-using System.Collections.Generic;
-using System.IO;
 using Newtonsoft.Json;
+using System.IO;
 using UnityEngine;
 
 
 namespace Artifax.ProjectBlock.Framework
 {
 
-    public class DataService : MonoBehaviour
+    public class DataService : Service
     {
         public void Save<T>(T data, string fileName)
         {

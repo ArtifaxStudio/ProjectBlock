@@ -1,3 +1,4 @@
+using Artifax.ProjectBlock.Framework;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 namespace Artifax.Framework
 {
-    public class SceneService : MonoBehaviour
+    public class SceneService : Service
     {
         private string m_CurrentScene = "";
 

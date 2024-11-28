@@ -1,8 +1,4 @@
 using Artifax.Framework;
-using Artifax.ProjectBlock.Gameplay;
-using Artifax.ProjectBlock.UI;
-using Newtonsoft.Json;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,7 +22,7 @@ namespace Artifax.ProjectBlock.Framework
         }
     }
 
-    public class ProgressService : MonoBehaviour
+    public class ProgressService : Service
     {
         public Dictionary<int, LevelProgress> LevelsProgress = new Dictionary<int, LevelProgress>();
 
