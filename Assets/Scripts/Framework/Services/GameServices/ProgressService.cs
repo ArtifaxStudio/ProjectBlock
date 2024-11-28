@@ -1,5 +1,6 @@
 using Artifax.Framework;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 namespace Artifax.ProjectBlock.Framework
@@ -21,10 +22,20 @@ namespace Artifax.ProjectBlock.Framework
             Score = score;
         }
     }
+    [System.Serializable]
+    public class CoreGameProgress
+    {
+        public Dictionary<int, LevelProgress> LevelsProgress = new Dictionary<int, LevelProgress>();
+        public CoreGameProgress() {
+            LevelsProgress = new Dictionary<int, LevelProgress>();
+        }
+
+        public readonly string FILE_PATH = "/SaveData/save.json";
+    }
 
     public class ProgressService : Service
     {
-        public Dictionary<int, LevelProgress> LevelsProgress = new Dictionary<int, LevelProgress>();
+        public CoreGameProgress CoreGameProgress;
 
         [SerializeField, ServiceLocatorReference] private ServiceLocator m_ServiceLocator;
 
@@ -32,20 +43,23 @@ namespace Artifax.ProjectBlock.Framework
 
         public LevelProgress GetLevelProgress(int levelID)
         {
-            return LevelsProgress[levelID];
+            if(CoreGameProgress.LevelsProgress.ContainsKey(levelID) ) 
+                return CoreGameProgress.LevelsProgress[levelID];
+            else 
+                return null;
         }
 
         public void UpdateLevelProgress(int levelID, float time, int score)
         {
-            if (!LevelsProgress.ContainsKey(levelID))
+            if (!CoreGameProgress.LevelsProgress.ContainsKey(levelID))
             {
                 LevelProgress lp = new LevelProgress();
 
-                LevelsProgress.Add(levelID, new LevelProgress(levelID, time, score));
+                CoreGameProgress.LevelsProgress.Add(levelID, new LevelProgress(levelID, time, score));
             }
             else
             {
-                var currentLevel = LevelsProgress[levelID];
+                var currentLevel = CoreGameProgress.LevelsProgress[levelID];
                 //TODO: Better time than before
 
             }
@@ -56,34 +70,34 @@ namespace Artifax.ProjectBlock.Framework
 #if UNITY_EDITOR
         private void Awake()
         {
-            //LoadLevelData();
             m_DataService = m_ServiceLocator.GetService<DataService>();
-            LevelsProgress = m_DataService.LoadData<Dictionary<int, LevelProgress>>("/SaveData" + "/save.json");
+
+            if(m_DataService.FileExists(CoreGameProgress.FILE_PATH))
+                CoreGameProgress = m_DataService.LoadData<CoreGameProgress>(CoreGameProgress.FILE_PATH);
         }
-#endif
-#if UNITY_EDITOR
+
         [ContextMenu("Load levels data")]
         public void LoadLevelData()
         {
-            LevelsProgress = m_DataService.LoadData<Dictionary<int, LevelProgress>>("/SaveData" + "/save.json");
+            CoreGameProgress.LevelsProgress = m_DataService.LoadData<Dictionary<int, LevelProgress>>(CoreGameProgress.FILE_PATH);
         }
 
         [ContextMenu("Save levels data")]
         public void SaveLevelsData()
         {
-            m_DataService.Save(LevelsProgress, "SaveData/save.json");
+            m_DataService.Save(CoreGameProgress.LevelsProgress, CoreGameProgress.FILE_PATH);
         }
 
         [ContextMenu("Delete levels file")]
         public void DeleteLevelsFile()
         {
-            m_DataService.DeleteData("SaveData/save.json");
+            m_DataService.DeleteData(CoreGameProgress.FILE_PATH);
         }
 
         [ContextMenu("Delete levels data")]
         public void DeleteLevelsData()
         {
-            LevelsProgress.Clear();
+            CoreGameProgress.LevelsProgress.Clear();
         }
 
         [ContextMenu("Populate levels data")]
@@ -95,16 +109,16 @@ namespace Artifax.ProjectBlock.Framework
             levelProgress.LevelID = 0;
             levelProgress.Completed = true;
 
-            if (!LevelsProgress.ContainsKey(0))
+            if (!CoreGameProgress.LevelsProgress.ContainsKey(0))
             {
-                LevelsProgress.Add(0, levelProgress);
+                CoreGameProgress.LevelsProgress.Add(0, levelProgress);
             }
         }
 
         [ContextMenu("Debug levels data")]
         public void DebugLevelsData()
         {
-            foreach (var level in LevelsProgress)
+            foreach (var level in CoreGameProgress.LevelsProgress)
             {
                 Debug.Log(level.Value.LevelID + " Completed: " + level.Value.Completed);
             }

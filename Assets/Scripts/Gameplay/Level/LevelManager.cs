@@ -55,8 +55,11 @@ namespace Artifax.ProjectBlock.Gameplay
 
         private void Start()
         {
-            if (m_Configuration == null)
-                m_Configuration = m_ServiceLocator.GetService<GameManagerService>().GetNextLevelConfiguration();
+            var gameManager = m_ServiceLocator.GetService<GameManagerService>();
+            if (gameManager.IsNextLevelReady())
+            {
+                m_Configuration = gameManager.GetNextLevelConfiguration();
+            }
 
             m_CurveSpawnRate = m_Configuration.MultiplierCurveSpawnRatePerMinute.Evaluate(0);
             m_CurrentSpawnRate = CalculeSpawnRate();

@@ -29,15 +29,18 @@ namespace Artifax.ProjectBlock.UI
             {
                 var group = Instantiate(m_LevelsGroupUIPrefab, m_LevelsHolder).GetComponent<LevelGroupUI>();
                 group.SetLevelGroup(levelGroup.GroupName);
-                
+
+                var progressService = m_ServiceLocator.GetService<ProgressService>();
+
                 foreach (var levelConfiguration in levelGroup.Levels)
                 {
                     var state = false;
-                    if (m_ServiceLocator.GetService<ProgressService>().LevelsProgress.ContainsKey(levelConfiguration.ID))
+                    var levelProgress = progressService.GetLevelProgress(levelConfiguration.ID);
+                    if (levelProgress != null)
                     {
-                        state = m_ServiceLocator.GetService<ProgressService>().LevelsProgress[levelConfiguration.ID].Completed;
+                        state = levelProgress.Completed;
                     }
-                    Debug.Log("Configure level selector");
+
                     group.AddLevel(levelConfiguration, LoadLevel, state);
                 }
             }
