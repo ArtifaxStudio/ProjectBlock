@@ -1,6 +1,5 @@
 using Artifax.Framework;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 namespace Artifax.ProjectBlock.Framework
@@ -26,11 +25,11 @@ namespace Artifax.ProjectBlock.Framework
     public class CoreGameProgress
     {
         public Dictionary<int, LevelProgress> LevelsProgress = new Dictionary<int, LevelProgress>();
+        private readonly string FILE_PATH = "/SaveData/save.json";
+
         public CoreGameProgress() {
             LevelsProgress = new Dictionary<int, LevelProgress>();
         }
-
-        public readonly string FILE_PATH = "/SaveData/save.json";
     }
 
     public class ProgressService : Service
