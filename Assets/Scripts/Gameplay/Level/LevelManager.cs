@@ -1,15 +1,17 @@
 using Artifax.Framework;
+using Artifax.ProjectBlock.Framework;
+using Artifax.ProjectBlock.UI;
+using System.Collections;
 using UnityEngine;
 
 namespace Artifax.ProjectBlock.Gameplay
 {
     public class LevelManager : MonoBehaviour
     {
-        public LevelConfiguration Configuration;
         public LevelState State;
 
         //TODO: This should be a TransformVariable
-        public CharacterBlock CharacterBlock;
+        public CharacterBlockController CharacterBlock;
 
         [SerializeField]
         private FallingElementSpawner FallingElementSpawner;
@@ -24,8 +26,22 @@ namespace Artifax.ProjectBlock.Gameplay
         private IntReference LoosedBlocks;
         [SerializeField]
         private IntReference DestroyedBlocks;
+        [Header("Services")]
+        [SerializeField] private ServiceLocator m_ServiceLocator;
+
+        [SerializeField] private LevelConfiguration m_Configuration;
+        [SerializeField] private ResultLevelUI m_levelUI;
 
         private float m_NextSpawnT = 0f;
+        private float m_CurrentSpawnRate = 0f;
+        private float m_VariableSpawnRate = 1f;
+        private float m_CurveSpawnRate = 1f;
+        private float m_SpawnTime = 1f;
+        private float m_InitialTime = 0f;
+        private bool m_IsPlaying = false;
+
+        [SerializeField, Scene]
+        private string m_MenuScene;
 
         private void Awake()
         {
@@ -34,27 +50,69 @@ namespace Artifax.ProjectBlock.Gameplay
             DestroyedBlocks.Value = 0;
 
             State.Init();
+            m_InitialTime = Time.time;
+        }
+
+        private void Start()
+        {
+            var gameManager = m_ServiceLocator.GetService<GameManagerService>();
+            if (gameManager.IsNextLevelReady())
+            {
+                m_Configuration = gameManager.GetNextLevelConfiguration();
+            }
+
+            m_CurveSpawnRate = m_Configuration.MultiplierCurveSpawnRatePerMinute.Evaluate(0);
+            m_CurrentSpawnRate = CalculeSpawnRate();
+            m_SpawnTime = 1f/m_CurrentSpawnRate;
+            m_IsPlaying = true;
+            StartCoroutine(ReCalculeCurveSpawnRate());
+
+            m_ServiceLocator.GetService<TransitionService>().EndTransition();
+        }
+        private IEnumerator ReCalculeCurveSpawnRate()
+        {
+            while (m_IsPlaying)
+            {
+                yield return new WaitForSeconds(1f);
+
+                var mapValue = Remap(Time.time - m_InitialTime, 0f, 60f, 0f, 1f);
+                m_CurveSpawnRate = m_Configuration.MultiplierCurveSpawnRatePerMinute.Evaluate(mapValue);
+                m_CurrentSpawnRate = CalculeSpawnRate();
+                m_SpawnTime = 1f / m_CurrentSpawnRate;
+            }
+        }
+
+        //TODO: Shouldnt be here
+        public static float Remap(float value, float fromMin, float fromMax, float toMin, float toMax)
+        {
+            return toMin + (value - fromMin) * (toMax - toMin) / (fromMax - fromMin);
         }
 
         //TODO: Probably a Update isn't the best option
         private void Update()
         {
-            if (State.SpawnedElements >= Configuration.TotalFallingElements)
-                return;
+            if (!m_IsPlaying) return;
 
             if (m_NextSpawnT > Time.time)
                 return;
 
             FallingElementSpawner.Spawn();
 
-            float evaluator = (float)State.SpawnedElements / (float)Configuration.TotalFallingElements;
-            float timeMultiplier = Configuration.TimeCurve.Evaluate(evaluator);
-            float time = (timeMultiplier * Configuration.VariableTimeBetweenElements) + Configuration.BaseTimeBetweenElements;
-
             //TODO: Spawner should control this??
             State.SpawnedElements++;
 
-            m_NextSpawnT = Time.time + time;
+            m_NextSpawnT = Time.time + m_SpawnTime;
+        }
+
+        public void BackToMenu()
+        {
+            m_ServiceLocator.GetService<TransitionService>().StartTransition();
+            m_ServiceLocator.GetService<SceneService>().LoadScene(m_MenuScene);
+        }
+
+        public void OnCharacterReachTop()
+        {
+            EndLevel();
         }
 
         public void OnPlayerTouched(FallingElement element)
@@ -68,6 +126,7 @@ namespace Artifax.ProjectBlock.Gameplay
                     break;
             }
         }
+
         public void OnBlockDestroyed(FallingElement element)
         {
             switch (element.Configuration)
@@ -95,7 +154,6 @@ namespace Artifax.ProjectBlock.Gameplay
 
             TryEndLevel();
         }
-
         private void ColorBlockDestroyed(FallingElement element)
         {
             LoosedBlocks.Value++;
@@ -108,13 +166,25 @@ namespace Artifax.ProjectBlock.Gameplay
             if (HasLevelEnd())
             {
                 Debug.Log("Level end");
-                m_EndLevelHud.SetActive(true);
+                EndLevel();
             }
+        }
+        private void EndLevel()
+        {
+            m_EndLevelHud.SetActive(true);
+            var time = Time.time - m_InitialTime;
+            m_levelUI.SetResult(time, 0, "");
+            m_IsPlaying = false;
+
+            m_ServiceLocator.GetService<ProgressService>().UpdateLevelProgress(m_Configuration.ID, time, 0);
         }
         private bool HasLevelEnd()
         {
-            return DestroyedBlocks.Value >= Configuration.TotalFallingElements
-                || GainedBlocks.Value == Configuration.NeededBlocks;
+            return GainedBlocks.Value == m_Configuration.NeededBlocks;
+        }
+        private float CalculeSpawnRate()
+        {
+            return m_Configuration.BlockSpawnRatePerSecond * m_CurveSpawnRate + m_VariableSpawnRate;
         }
     }
 }

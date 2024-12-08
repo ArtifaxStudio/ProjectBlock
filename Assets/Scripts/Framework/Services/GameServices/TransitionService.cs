@@ -1,10 +1,11 @@
+using Artifax.ProjectBlock.Framework;
 using System;
 using System.Collections;
 using UnityEngine;
 
 namespace Artifax.Framework
 {
-    public class TransitionService : MonoBehaviour
+    public class TransitionService : Service
     {
         [SerializeField]
         private Animator m_Animator;

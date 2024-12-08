@@ -5,7 +5,6 @@ using UnityEngine.Events;
 
 namespace Artifax.ProjectBlock.Gameplay
 {
-    [RequireComponent(typeof(Rigidbody2D))]
     public class CharacterController2D : MonoBehaviour
     {
         [SerializeField] private float m_MaxVelocity = 2f;
@@ -46,7 +45,6 @@ namespace Artifax.ProjectBlock.Gameplay
             }
         }
 
-
         public void Move(float direction)
         {
             //only control the player if grounded or airControl is turned on
@@ -56,30 +54,7 @@ namespace Artifax.ProjectBlock.Gameplay
                 Vector3 targetVelocity = new Vector2(direction * m_MaxVelocity, m_Rigidbody2D.velocity.y);
                 // And then smoothing it out and applying it to the character
                 m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
-
-                // If the input is moving the player right and the player is facing left...
-                if (direction > 0 && !m_FacingRight)
-                {
-                    // ... flip the player.
-                    Flip();
-                }
-                // Otherwise if the input is moving the player left and the player is facing right...
-                else if (direction < 0 && m_FacingRight)
-                {
-                    // ... flip the player.
-                    Flip();
-                }
             }
-        }
-        private void Flip()
-        {
-            // Switch the way the player is labelled as facing.
-            m_FacingRight = !m_FacingRight;
-
-            // Multiply the player's x local scale by -1.
-            Vector3 theScale = transform.localScale;
-            theScale.x *= -1;
-            transform.localScale = theScale;
         }
     }
 }
